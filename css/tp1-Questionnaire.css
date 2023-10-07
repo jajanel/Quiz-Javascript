@@ -1,0 +1,168 @@
+/* Mettre tous vos styles ici */
+
+body {
+    background-image: url("https://www.wallpaperuse.com/wallp/86-861923_m.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.zoneDeDonnees{
+    flex: auto;
+    padding: 12px;
+    background-color: rgb(253, 226, 195);
+    border: 3px solid #47a1a4;
+    text-align: left;
+    border-radius: 16px;
+    margin: 60px 120px;
+    opacity: 100%;
+}
+
+.bouton {
+    text-align: left;
+    margin: 16px 16px;
+    padding: 4px 12px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Century Gothic", serif;
+    border-radius: 16px 3px 16px 3px;
+    border: 2px solid #7faab7;
+    background: white;
+    flex: auto;
+}
+
+#rectangle {
+    flex: auto;
+    padding: 12px;
+    background-color: rgb(253, 226, 195);
+    border: 3px solid #47a1a4;
+    text-align: left;
+    border-radius: 16px;
+    margin: 60px 120px;
+    opacity: 100%;
+
+}
+
+#titre {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 16px 8px;
+    text-align: left;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+#p1 {
+    margin: 10px;
+    font-size: 28px;
+    text-align: left;
+    color: #6394ea;
+    font-weight: bold;
+    display: block;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+#p2 {
+    margin: 24px 25% 24px 16px;
+    font-size: 22px;
+    text-align: justify;
+    color: #142744;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    display: block;
+}
+
+#pRep {
+    margin: 16px 16px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    text-align: left;
+    color: #304e4e;
+}
+
+#question {
+    margin: 16px 16px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    text-align: left;
+    color: #375859;
+    display: block;
+}
+
+#reponse {
+    margin: 16px 16px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    text-align: left;
+    color: #304e4e;
+    display: block;
+}
+
+#bouton {
+    text-align: left;
+    margin: 16px 16px;
+    padding: 4px 12px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Century Gothic", serif;
+    border-radius: 16px 3px 16px 3px;
+    border: 2px solid #7faab7;
+    background: white;
+    flex: auto;
+
+
+}
+
+.bouton:hover {
+    background-color: #7faab7;
+    color: white;
+    cursor: pointer;
+}
+
+#pMauvaiseRéponse {
+    color: red;
+    margin: 16px 16px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    text-align: left;
+    display: block;
+    text-decoration: line-through;
+
+}
+
+#pBonneRéponse {
+    color: green;
+    margin: 16px 16px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    text-align: left;
+    display: block;
+}
+
+#pLaBonneRéponseQuiAPasÉtéDonné {
+    color: blue;
+    margin: 16px 16px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    text-align: left;
+    display: block;
+
+}
+
+
+#fieldset {
+    margin: 10px;
+    font-size: 14px;
+    text-align: left;
+    color: #6394ea;
+    font-weight: bold;
+    display: block;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
