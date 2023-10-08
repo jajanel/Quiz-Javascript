@@ -49,6 +49,7 @@ function gererBoutons(questionnaireObj) {
 
     boutonSuivant.addEventListener("click", function () {
         const reponseSelectionee = document.querySelector('input[name="reponse"]:checked');
+
         if (questionnaireObj.verifierReponse(questionnaireObj.questions, reponseSelectionee)) {
             console.log(reponseSelectionee);
             construireInterfaceQuestion(questionnaireObj);
@@ -57,11 +58,12 @@ function gererBoutons(questionnaireObj) {
          Si c'est pas nul, alors on affiche si bonne réponse ou pas et user peut cliquer sur suivante.
          Et les radio buttons sont disabled() pour pas qu'il puisse changer sa réponse.*/
     });
-
     const boutonAbandon = creerInput("button", "boutonAbandon", "", "Abandonner", "bouton");
     fieldset.appendChild(boutonAbandon);
     boutonAbandon.addEventListener("click", function () {
+        construireInterfaceAbandon(questionnaireObj);
     });
+
 }
 
 function affichageQuestion(questionObj, questionnaireObj) {
