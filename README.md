@@ -1,2 +1,3 @@
-# Trying To Understand JS
- Copie du TP1 de programmation pour test et pratique
+# Quiz-Javascript
+
+Petit Quiz de Javascript pour le cours de Programmation Web.
