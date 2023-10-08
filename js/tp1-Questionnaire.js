@@ -37,32 +37,33 @@ function creerNouveauJeu() {
 }
 
 function construireInterfaceQuestion(questionObj, questionnaireObj) {
-    const currentQuestionIndex = questionnaireObj.questions.length;
-    console.log(questionObj.length);
-    if (currentQuestionIndex < questionObj.length) {
+    if (questionnaireObj.indexQuestion < questionnaireObj.questions.length) {
         viderZoneDeDonnees();
-        const questionObj = questionnaireObj.questions[currentQuestionIndex];
-        affichageQuestion(questionObj, questionnaireObj);
-        gererBoutons(questionnaireObj);
+        const questionObj = questionnaireObj.questions[questionnaireObj.indexQuestion];
+        affichageQuestion(questionObj);
+        gererBoutons();
     } else {
-        construireInterfaceFinal(questionnaireObj);
+        construireInterfaceFinal();
     }
 }
+
+
+
 
 function gererBoutons(questionObj, questionnaireObj) {
     const boutonSuivant = creerInput("button", "boutonSuivant", "", "Question Suivante !", "bouton");
     fieldset.appendChild(boutonSuivant);
     boutonSuivant.addEventListener("click", function () {
-        const nextQuestionObj = questionnaireObj.getQuestion();
+        const nextQuestionObj = questionnaireObj;
         if (nextQuestionObj) {
             construireInterfaceQuestion(nextQuestionObj, questionnaireObj);
         } else {
             construireInterfaceFinal(fieldset, questionnaireObj);
         }
     });
-    const boutonIntro = creerInput("button", "boutonAbandon", "", "Abandonner", "bouton");
-    fieldset.appendChild(boutonIntro);
-    boutonIntro.addEventListener("click", function () {
+    const boutonAbandon = creerInput("button", "boutonAbandon", "", "Abandonner", "bouton");
+    fieldset.appendChild(boutonAbandon);
+    boutonAbandon.addEventListener("click", function () {
             construireInterfaceAbandon(questionObj, questionnaireObj);
         }
     );
@@ -71,11 +72,10 @@ function gererBoutons(questionObj, questionnaireObj) {
 
 function affichageQuestion(questionObj, questionnaireObj) {
     viderZoneDeDonnees();
-    const questionCourante = questionObj;
-    const nbrePoints = questionCourante.nbrePoints;
-    const questionText = questionCourante.question;
-    const reponses = questionCourante.reponses;
-    fieldset.appendChild(creerBaliseX("h1", "p1", "Question " + (questionnaireObj.indexQuestion + 1) + " de 5 pour " + nbrePoints + " points"));
+    const nbrePoints = questionObj.nbrePoints;
+    const questionText = questionObj.question;
+    const reponses = questionObj.reponses;
+    fieldset.appendChild(creerBaliseX("h1", "p1", "Question " + (questionnaireObj + 1) + " de 5 pour " + nbrePoints + " points"));
     fieldset.appendChild(creerBaliseX("p", "p2", questionText));
     for (let i = 0; i < reponses.length; i++) {
         let choixDeReponse = creerBaliseX("p", "choix");
@@ -113,7 +113,7 @@ function gererInterfaceFinal(questionnaireObj, questionObj) {
     titre.textContent = "Voici votre résultat final: ";
     resultat.textContent = "Tu as eu un score de " + scoreFinal + " points, ce qui fait une note de: " + notePourcentage + " ." + msgEncouragement;
     boutonRejouer.addEventListener("click", function () {
-        construireInterfaceIntro();
+        creerNouveauJeu();
     });
 }
 
@@ -122,17 +122,16 @@ function construireInterfaceAbandon(questionObj, questionnaireObj) {
     fieldset.appendChild(creerBaliseX("h1", "titre"));
     fieldset.appendChild(creerBaliseX("p", "resultat"));
     fieldset.appendChild(creerBaliseX("p", "nombreDePoints"));
-    const boutonRejouer = creerInput("button", "boutonRejouer", "", "Rejouer !", ""); // Declare boutonRejouer
+    const boutonRejouer = creerInput("button", "boutonRejouer", "", "Rejouer !", "bouton"); // Declare boutonRejouer
     fieldset.appendChild(boutonRejouer);
     gererInterfaceAbandon(questionObj, questionnaireObj);
 }
 
 function gererInterfaceAbandon(questionObj, questionnaireObj) {
-    viderZoneDeDonnees();
-    let scoreFinal = questionnaireObj.calculerPoints();
+    let scoreFinal = 0;
     let msgEncouragement = msgSelonScore(scoreFinal);
     let notePourcentage = scoreFinal / 50 * 100; //TODO Créer une fonction qui va calculer le pourcentage de la note. Considerer que si l'user abandonne, c'est pas nécessairement 5 questions qu'il a répondu.
-    titre.textContent = "Voici votre résultat, même si vous avez abandonné :o)";
+    titre.textContent = "Voici votre résultat, même si vous avez abandonné...";
     resultat.textContent = "Tu as eu un score de " + scoreFinal + " points, ce qui fait une note de: " + notePourcentage + " ." + msgEncouragement;
 
     boutonRejouer.addEventListener("click", function () {

@@ -1,0 +1,8 @@
+
+ ✨ Ce qu'il nous reste à faire avant la remise:
+
+ 1 - Réussir à faire défiler les cinq questions.
+ 2 - Vérifier que la réponse sélectionnée est la bonne (en utilisant querySelector).
+ 3 - Faire la méthode qui calcule le score.
+ 4 - Créer une fonction qui va calculer le pourcentage du score. Il faut considérer le nombre de question qui on été répondues par l'utilisateur.
+ 5 - Ajouter la légende à chaque interface.

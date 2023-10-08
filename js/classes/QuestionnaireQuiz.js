@@ -1,8 +1,11 @@
 class QuestionnaireQuiz {
+
+
+
     constructor(questions) {
-        this.questions = JSONaObjectJS();
-        this.indexQuestion = 0; // Track the current question index
-        this.nombreDePoints = 0; // Track the number of points
+        this.questions = JSONaObjectJS(tabAssQuestions);
+        this.indexQuestion = 0;
+        this.nombreDePoints = 0;
     }
 
 
