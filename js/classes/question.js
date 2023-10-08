@@ -1,8 +1,5 @@
 "use strict";
 
-//Ceci est la classe question, on ne fait QUE fabriquer les objets ici
-
-
 class Question {
     constructor(question, reponses, bonneReponse, nbrePoints) {
         this._question = question;
@@ -10,6 +7,7 @@ class Question {
         this._bonneReponse = bonneReponse;
         this._nbrePoints = nbrePoints;
     }
+
 
     get question() {
         return this._question;
@@ -45,7 +43,25 @@ class Question {
 }
 
 //Verif si la reponse est bonne ici
-function verifierReponse(reponse, bonneReponse) {
+    function valideReponse(reponseDonnee) {
+        this.reponseDonnee = reponseDonnee;
 
-}
+    }
+
+    /**
+     * Fonction qui prend un array et shuffle les question selon algorithm Fisher-Yates
+     * @returns {*[]}
+     * @constructor
+     */
+    function JSONaObjectJS() {
+        let tableauDesQuestions = [];
+        for (const question of tabAssQuestions) {
+            tableauDesQuestions.push(new Question(question.question, question.reponses, question.bonneReponse, question.nbrePoints)); // Push each question object into the new array
+        }
+        shuffleArray(tableauDesQuestions);
+
+        return tableauDesQuestions.slice(0, 5);
+    }
+
+
 

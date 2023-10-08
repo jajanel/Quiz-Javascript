@@ -1,5 +1,7 @@
 /* Mettre tous vos styles ici */
 
+/* En rappel: pour une balise, écrire directement le nom, pour un ID mettre un # devant et pour une classe mettre un point devant */
+
 body {
     background-image: url("https://www.wallpaperuse.com/wallp/86-861923_m.jpg");
     background-repeat: no-repeat;
@@ -7,8 +9,7 @@ body {
     background-position: center;
     background-attachment: fixed;
 }
-
-.zoneDeDonnees{
+fieldset {
     flex: auto;
     padding: 12px;
     background-color: rgb(253, 226, 195);
@@ -17,6 +18,18 @@ body {
     border-radius: 16px;
     margin: 60px 120px;
     opacity: 100%;
+}
+
+/* à noter que nous devions mettre une couleur de fond ici pour voir la légende avec notre image de background bleu 😉 */
+legend{
+    background-color:rgb(253, 226, 195) ;
+    border: 3px solid #47a1a4;
+    border-radius: 16px;
+    font-weight: bold;
+    text-align: left;
+    padding: 4px 12px;
+    font-size: 20px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
 }
 
 .bouton {
@@ -31,21 +44,15 @@ body {
     background: white;
     flex: auto;
 }
-
-#rectangle {
-    flex: auto;
-    padding: 12px;
-    background-color: rgb(253, 226, 195);
-    border: 3px solid #47a1a4;
-    text-align: left;
-    border-radius: 16px;
-    margin: 60px 120px;
-    opacity: 100%;
-
+.bouton:hover {
+    background-color: #7faab7;
+    color: white;
+    cursor: pointer;
 }
 
+
 #titre {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
     margin: 16px 8px;
     text-align: left;
@@ -62,9 +69,9 @@ body {
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
-#p2 {
+#p2, #resultat {
     margin: 24px 25% 24px 16px;
-    font-size: 22px;
+    font-size: 18px;
     text-align: justify;
     color: #142744;
     font-weight: bold;
@@ -100,27 +107,6 @@ body {
     text-align: left;
     color: #304e4e;
     display: block;
-}
-
-#bouton {
-    text-align: left;
-    margin: 16px 16px;
-    padding: 4px 12px;
-    font-size: 20px;
-    font-weight: bold;
-    font-family: "Century Gothic", serif;
-    border-radius: 16px 3px 16px 3px;
-    border: 2px solid #7faab7;
-    background: white;
-    flex: auto;
-
-
-}
-
-.bouton:hover {
-    background-color: #7faab7;
-    color: white;
-    cursor: pointer;
 }
 
 #pMauvaiseRéponse {

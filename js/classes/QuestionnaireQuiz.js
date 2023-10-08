@@ -1,29 +1,34 @@
-/**Faire une classe qui prends les quesions et qui les mets dans un tableau ordonné
- s'occupe de faire le questionnaire, de le faire avancer et de calculer les points
- Ajouter des fonctions, pour calculer les points, vérifier les réponses, etc.
- quand on clique sur jouer, faire un for in qui va créer les 5 questions dans le rectangle des données*/
-
-
 class QuestionnaireQuiz {
-
-
-//Ici mettre le constructeur
-    constructor() {
-        this._questions = JSONaObjectJS();
+    constructor(questions) {
+        this.questions = JSONaObjectJS();
+        this.indexQuestion = 0; // Track the current question index
+        this.nombreDePoints = 0; // Track the number of points
     }
 
 
-    get questions() {
-        return this._questions;
-    }
 
-    set questions(value) {
-        this._questions = value;
-    }
 
-     // calculer les points
     calculerPoints() {
-        return 0;
+        // Implement logic to calculate points based on user responses
+        // For example, you can iterate through this._questions and check user responses
+        let totalPoints = 0;
+        // Add your logic here to calculate points
+        return totalPoints;
+    }
+
+
+
+    //Un peu n'importe quoi mais dans cette idée là
+    verifierReponse(question, valeurCochée) {
+        if (valeurCochée === null) {
+            alert("Veuillez choisir une réponse ou abandonner !")
+        } else {
+            if (question.bonneReponse === valeurCochée && valideReponse(question.bonneReponse)) {
+                this.nombreDePoints += question.nbrePoints;
+                return true;
+            }
+        }
+        return false;
     }
 
 }
