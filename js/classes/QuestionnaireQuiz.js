@@ -66,14 +66,15 @@ class QuestionnaireQuiz {
 
     //Un peu n'importe quoi mais dans cette idée là
     verifierReponse(question, valeurCochée) {
+        let valeurAeteCochee= false;
         if (valeurCochée == null) {
             alert("Veuillez choisir une réponse ou abandonner !");
         } else {
             //TODO vérifier si c'est la bonne réponse!!
-            return true;
+            valeurAeteCochee = true;
             console.log("valeurCochée : " + valeurCochée.value);
         }
-        return false;
+        return valeurAeteCochee;
     }
 
 }

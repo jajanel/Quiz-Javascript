@@ -115,7 +115,7 @@ let tabAssQuestions = [
         "reponses": [
             "addEventListener('click', myFunction) - A",
             "onclick = myFunction()",
-            "event.stopImmigration()",
+            "event.stopInvention()",
             "addRessource('click', myFunction)",
             "addElementDom('radio', myFunction)",
         ],
