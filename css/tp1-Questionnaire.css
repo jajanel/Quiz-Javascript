@@ -152,3 +152,7 @@ legend{
     display: block;
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
+
+.hidden {
+    display: none;
+}

@@ -44,26 +44,44 @@ function construireInterfaceQuestion(questionnaireObj) {
 }
 
 function gererBoutons(questionnaireObj) {
-    const boutonSuivant = creerInput("button", "boutonSuivant", "", "Question Suivante !", "bouton");
-    fieldset.appendChild(boutonSuivant);
+    let boutonVerifier = null;
 
-    boutonSuivant.addEventListener("click", function () {
-        const reponseSelectionee = document.querySelector('input[name="reponse"]:checked');
+    function afficherBoutonVerifier() {
+        boutonVerifier = creerInput("button", "boutonVerifier", "", "Verifier le resultat", "bouton");
+        fieldset.appendChild(boutonVerifier);
 
-        if (questionnaireObj.verifierReponse(questionnaireObj.questions, reponseSelectionee)) {
-            console.log(reponseSelectionee);
-            construireInterfaceQuestion(questionnaireObj);
-        }
-        /* Vérifier réponse vérifie si c'est null, si c'est nul, alors message d'Erreur et l'utilisateur doit recommencer.
-         Si c'est pas nul, alors on affiche si bonne réponse ou pas et user peut cliquer sur suivante.
-         Et les radio buttons sont disabled() pour pas qu'il puisse changer sa réponse.*/
-    });
+        boutonVerifier.addEventListener("click", function () {
+            const reponseSelectionee = document.querySelector('input[name="reponse"]:checked');
+
+            if (!reponseSelectionee) {
+                alert("Veuillez sélectionner une réponse ou abandonner le quiz.");
+                return;
+            }
+
+            const reponsesRadio = document.querySelectorAll('input[name="reponse"]');
+            reponsesRadio.forEach((radio) => {
+                radio.disabled = true;
+            });
+
+            boutonVerifier.value = "Question Suivante !";
+            boutonVerifier.removeEventListener("click", afficherBoutonVerifier);
+            boutonVerifier.addEventListener("click", function () {
+                boutonVerifier.value = "Verifier le resultat";
+                boutonVerifier.classList.add('hidden');
+                boutonAbandon.classList.remove('hidden');
+                construireInterfaceQuestion(questionnaireObj);
+            });
+        });
+    }
+
+    afficherBoutonVerifier();
+
     const boutonAbandon = creerInput("button", "boutonAbandon", "", "Abandonner", "bouton");
     fieldset.appendChild(boutonAbandon);
+
     boutonAbandon.addEventListener("click", function () {
         construireInterfaceAbandon(questionnaireObj);
     });
-
 }
 
 function affichageQuestion(questionObj, questionnaireObj) {
