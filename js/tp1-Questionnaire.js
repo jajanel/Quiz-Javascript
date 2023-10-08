@@ -30,24 +30,32 @@ function viderZoneDeDonnees() {
 
 function creerNouveauJeu() {
     const questionnaireObj = new QuestionnaireQuiz();
-    const questionObj = questionnaireObj.questions;
-
-    viderZoneDeDonnees();
-    construireInterfaceQuestion(questionObj, questionnaireObj);
-}
-
-function construireInterfaceQuestion(questionObj, questionnaireObj) {
-    if (questionnaireObj.indexQuestion < questionnaireObj.questions.length) {
+    const questionObj = questionnaireObj.tableauDesQuestions[questionnaireObj.indexCourrantQuestion];
+    //TODO comprendre le sens de son existence, apprendre le tai tchi, et le sens de la vie une seconde fois et découvrir les lois qui controle l'univers et la vie et son sens et le sens de la vie et de l'univers et de tout le reste.
+    //gne gne gne length fonctionne pas POURQUOOOOOIDFNKMGNBDSFJHGBDFKGJHBDFHJSKGBSDKHJFBGDKSJHFGBADFHJKGBAGDFJHKGFBDDFGKHJFGBJHFGDBJKHDAFGBHJKDGADJKBHFdfbhjk jmen vais dormir.
+    if (questionnaireObj.indexCourrantQuestion < questionnaireObj.tableauDesQuestions.length) {
         viderZoneDeDonnees();
-        const questionObj = questionnaireObj.questions[questionnaireObj.indexQuestion];
-        affichageQuestion(questionObj);
-        gererBoutons();
+        construireInterfaceQuestion(questionObj, questionnaireObj);
     } else {
-        construireInterfaceFinal();
+        construireInterfaceFinal(questionnaireObj);
     }
 }
 
+function construireInterfaceQuestion(questionObj, questionnaireObj) {
+    for (let i = 0; i < questionnaireObj.questions.length; i++) {
+        let currentQuestion = questionObj.questions[i];
+        console.log(currentQuestion);
+        if (questionnaireObj.questions[i] < questionnaireObj.questions.length) {
+            viderZoneDeDonnees();
+            affichageQuestion(currentQuestion, questionnaireObj);
+            gererBoutons(questionnaireObj);
+        } else {
+            construireInterfaceFinal(questionnaireObj);
+        }
+    }
 
+
+}
 
 
 function gererBoutons(questionObj, questionnaireObj) {

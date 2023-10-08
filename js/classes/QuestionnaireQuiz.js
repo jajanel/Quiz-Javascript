@@ -1,9 +1,9 @@
 class QuestionnaireQuiz {
 
+    indexCourrantQuestion = 0;
 
-
-    constructor(questions) {
-        this.questions = JSONaObjectJS(tabAssQuestions);
+    constructor() {
+        this.tableauDesQuestions = JSONaObjectJS(tabAssQuestions);
         this.indexQuestion = 0;
         this.nombreDePoints = 0;
     }
