@@ -3,11 +3,10 @@
 const zoneDeDonnees = document.getElementById("zoneDeDonnees");
 const fieldset = creerFieldset("fieldset");
 zoneDeDonnees.appendChild(fieldset);
+let indexCourrantQuestion = -1;
 
 function construireInterfaceIntro() {
     viderZoneDeDonnees();
-
-    // Create and append the legend element
     const legend = document.createElement("legend");
     legend.textContent = "Intro";
     fieldset.appendChild(legend);
@@ -17,8 +16,6 @@ function construireInterfaceIntro() {
 
     const boutonIntro = creerInput("button", "boutonIntro", "", "Commencer le quiz !", "bouton");
     fieldset.appendChild(boutonIntro);
-
-    // Add event listener to the button
     boutonIntro.addEventListener("click", function () {
         creerNouveauJeu();
     });
@@ -29,66 +26,50 @@ function viderZoneDeDonnees() {
 }
 
 function creerNouveauJeu() {
+    indexCourrantQuestion = -1;
+    viderZoneDeDonnees();
     const questionnaireObj = new QuestionnaireQuiz();
-    const questionObj = questionnaireObj.tableauDesQuestions[questionnaireObj.indexCourrantQuestion];
-    //TODO comprendre le sens de son existence, apprendre le tai tchi, et le sens de la vie une seconde fois et découvrir les lois qui controle l'univers et la vie et son sens et le sens de la vie et de l'univers et de tout le reste.
-    //gne gne gne length fonctionne pas POURQUOOOOOIDFNKMGNBDSFJHGBDFKGJHBDFHJSKGBSDKHJFBGDKSJHFGBADFHJKGBAGDFJHKGFBDDFGKHJFGBJHFGDBJKHDAFGBHJKDGADJKBHFdfbhjk jmen vais dormir.
-    if (questionnaireObj.indexCourrantQuestion < questionnaireObj.tableauDesQuestions.length) {
-        viderZoneDeDonnees();
-        construireInterfaceQuestion(questionObj, questionnaireObj);
-    } else {
+    construireInterfaceQuestion(questionnaireObj);
+}
+
+function construireInterfaceQuestion(questionnaireObj) {
+    indexCourrantQuestion++;
+    if (indexCourrantQuestion >= questionnaireObj.questions.length) {
         construireInterfaceFinal(questionnaireObj);
+
     }
+    let questionCourante = questionnaireObj.questions[indexCourrantQuestion];
+    affichageQuestion(questionCourante, questionnaireObj);
+    gererBoutons(questionnaireObj);
 }
 
-function construireInterfaceQuestion(questionObj, questionnaireObj) {
-    for (let i = 0; i < questionnaireObj.questions.length; i++) {
-        let currentQuestion = questionObj.questions[i];
-        console.log(currentQuestion);
-        if (questionnaireObj.questions[i] < questionnaireObj.questions.length) {
-            viderZoneDeDonnees();
-            affichageQuestion(currentQuestion, questionnaireObj);
-            gererBoutons(questionnaireObj);
-        } else {
-            construireInterfaceFinal(questionnaireObj);
-        }
-    }
-
-
-}
-
-
-function gererBoutons(questionObj, questionnaireObj) {
+function gererBoutons(questionnaireObj) {
     const boutonSuivant = creerInput("button", "boutonSuivant", "", "Question Suivante !", "bouton");
     fieldset.appendChild(boutonSuivant);
     boutonSuivant.addEventListener("click", function () {
-        const nextQuestionObj = questionnaireObj;
-        if (nextQuestionObj) {
-            construireInterfaceQuestion(nextQuestionObj, questionnaireObj);
-        } else {
-            construireInterfaceFinal(fieldset, questionnaireObj);
-        }
+        construireInterfaceQuestion(questionnaireObj);
     });
+
     const boutonAbandon = creerInput("button", "boutonAbandon", "", "Abandonner", "bouton");
     fieldset.appendChild(boutonAbandon);
     boutonAbandon.addEventListener("click", function () {
-            construireInterfaceAbandon(questionObj, questionnaireObj);
-        }
-    );
+        construireInterfaceAbandon(questionnaireObj);
+    });
 }
-
 
 function affichageQuestion(questionObj, questionnaireObj) {
     viderZoneDeDonnees();
-    const nbrePoints = questionObj.nbrePoints;
-    const questionText = questionObj.question;
+    //TODO COMPRENDRE L'EXISTENCE DE LA VIE ET DE DIEU
+    const questionText = questionnaireObj.questions[indexCourrantQuestion];
+    const questionCourante = questionObj;
     const reponses = questionObj.reponses;
-    fieldset.appendChild(creerBaliseX("h1", "p1", "Question " + (questionnaireObj + 1) + " de 5 pour " + nbrePoints + " points"));
+    fieldset.appendChild(creerBaliseX("h1", "p1", "Question " + (indexCourrantQuestion + 1) + " de 5 pour " + questionObj.nbrePoints + " points"));
     fieldset.appendChild(creerBaliseX("p", "p2", questionText));
     for (let i = 0; i < reponses.length; i++) {
         let choixDeReponse = creerBaliseX("p", "choix");
         choixDeReponse.appendChild(affichageChoixReponses(reponses[i], i + 1));
         fieldset.appendChild(choixDeReponse);
+
     }
 }
 
@@ -99,24 +80,23 @@ function affichageChoixReponses(reponse, index) {
     return ligneReponse;
 }
 
-
-function construireInterfaceFinal(questionObj, questionnaireObj) {
+function construireInterfaceFinal(questionnaireObj) {
     viderZoneDeDonnees();
     //legend.textContent = "Résultats";
     fieldset.appendChild(creerBaliseX("h1", "titre",));
     fieldset.appendChild(creerBaliseX("p", "resultat", "", ""));
     fieldset.appendChild(creerBaliseX("p", "nombreDePoints"));
-    const boutonRejouer = creerInput("button", "boutonRejouer", "", "Rejouer !", "bouton"); // Declare boutonRejouer
+    const boutonRejouer = creerInput("button", "boutonRejouer", "", "Rejouer !", "bouton");
     fieldset.appendChild(boutonRejouer);
-    gererInterfaceFinal(questionnaireObj, questionObj); // Pass questionnaireObj as an argument
+    gererInterfaceFinal(questionnaireObj);
 }
 
-function gererInterfaceFinal(questionnaireObj, questionObj) {
+function gererInterfaceFinal(questionnaireObj) {
     let scoreFinal = 0;
     //questionnaireObj.calculerPoints();
     let msgEncouragement = msgSelonScore(scoreFinal);
     // TODO Créer une fonction qui va calculer le pourcentage de la note. Considerer que si l'user abandonne, c'est pas nécessairement 5 questions qu'il a répondu.
-    let notePourcentage = scoreFinal / 50 * 100; // You might want to calculate this differently; it's currently a fixed percentage.
+    let notePourcentage = scoreFinal / 50 * 100;
 
     titre.textContent = "Voici votre résultat final: ";
     resultat.textContent = "Tu as eu un score de " + scoreFinal + " points, ce qui fait une note de: " + notePourcentage + " ." + msgEncouragement;
@@ -125,28 +105,26 @@ function gererInterfaceFinal(questionnaireObj, questionObj) {
     });
 }
 
-function construireInterfaceAbandon(questionObj, questionnaireObj) {
+function construireInterfaceAbandon(questionnaireObj) {
     viderZoneDeDonnees();
     fieldset.appendChild(creerBaliseX("h1", "titre"));
     fieldset.appendChild(creerBaliseX("p", "resultat"));
     fieldset.appendChild(creerBaliseX("p", "nombreDePoints"));
-    const boutonRejouer = creerInput("button", "boutonRejouer", "", "Rejouer !", "bouton"); // Declare boutonRejouer
+    const boutonRejouer = creerInput("button", "boutonRejouer", "", "Rejouer !", "bouton");
     fieldset.appendChild(boutonRejouer);
-    gererInterfaceAbandon(questionObj, questionnaireObj);
+    gererInterfaceAbandon(questionnaireObj);
 }
 
-function gererInterfaceAbandon(questionObj, questionnaireObj) {
+function gererInterfaceAbandon(questionnaireObj) {
     let scoreFinal = 0;
-    let msgEncouragement = msgSelonScore(scoreFinal);
-    let notePourcentage = scoreFinal / 50 * 100; //TODO Créer une fonction qui va calculer le pourcentage de la note. Considerer que si l'user abandonne, c'est pas nécessairement 5 questions qu'il a répondu.
+    let notePourcentage = calculerPoucentage(scoreFinal, 2);
     titre.textContent = "Voici votre résultat, même si vous avez abandonné...";
-    resultat.textContent = "Tu as eu un score de " + scoreFinal + " points, ce qui fait une note de: " + notePourcentage + " ." + msgEncouragement;
+    resultat.textContent = "Tu as eu un score de " + scoreFinal + " points, ce qui fait une note de: " + notePourcentage + " ." + msgSelonScore(scoreFinal);
 
     boutonRejouer.addEventListener("click", function () {
         creerNouveauJeu();
     });
 }
-
 function main() {
     // Zone de données est l'id du div dans le HTML
     construireInterfaceIntro(zoneDeDonnees);

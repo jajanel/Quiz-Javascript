@@ -1,13 +1,56 @@
 class QuestionnaireQuiz {
 
-    indexCourrantQuestion = 0;
+    _indexCourrantQuestion = 0;
 
-    constructor() {
-        this.tableauDesQuestions = JSONaObjectJS(tabAssQuestions);
-        this.indexQuestion = 0;
-        this.nombreDePoints = 0;
+    constructor(questions) {
+        this._indexQuestion = 0;
+        this._nombreDePoints = 0;
+        this._questions = JSONaObjectJS();
     }
 
+
+    get indexCourrantQuestion() {
+        return this._indexCourrantQuestion++;
+    }
+
+    set indexCourrantQuestion(value) {
+        this._indexCourrantQuestion = value;
+    }
+
+    get questions() {
+        return this._questions;
+    }
+
+    set questions(value) {
+        this._questions = value;
+    }
+
+    get indexQuestion() {
+        return this._indexQuestion;
+    }
+
+    set indexQuestion(value) {
+        this._indexQuestion = value;
+    }
+
+    get nombreDePoints() {
+        return this._nombreDePoints;
+    }
+
+    set nombreDePoints(value) {
+        this._nombreDePoints = value;
+    }
+
+    verifierIndex() {
+        let prochaineQuestionExiste = false;
+        if (this._indexCourrantQuestion < this._questions.length) {
+            prochaineQuestionExiste = true;
+            this._indexCourrantQuestion++;
+        } else {
+            prochaineQuestionExiste = true;
+        }
+        return prochaineQuestionExiste;
+    }
 
 
 
@@ -24,11 +67,11 @@ class QuestionnaireQuiz {
     //Un peu n'importe quoi mais dans cette idée là
     verifierReponse(question, valeurCochée) {
         if (valeurCochée === null) {
-            alert("Veuillez choisir une réponse ou abandonner !")
+            alert("Veuillez choisir une réponse ou abandonner !");
         } else {
-            if (question.bonneReponse === valeurCochée && valideReponse(question.bonneReponse)) {
-                this.nombreDePoints += question.nbrePoints;
-                return true;
+            if (question.bonneReponse === valeurCochée) {
+                this._nombreDePoints += question.nbrePoints;
+                question.disable();
             }
         }
         return false;

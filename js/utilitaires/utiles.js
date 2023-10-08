@@ -10,6 +10,14 @@ function shuffleArray(array) {
     }
 }
 
+function calculerPoucentage(scoreFinal, nbrQuestionRepondue){
+    //TODO VARIABLE DU NOMBRE DE POINTS ACCUMULÉ ET VARIABLE DU NOMBRE DE QUESTIONS RÉPONDUES (YA CLAIREMENT QUELQUE CHOSE À FAIRE AVEC INDEX E QUESTION -1 OU JSP ON VERRA)
+    // DIVISÉ PAR NOMBRE DE QUESTION JSP COMMENT FAIRE UN POURCENTAGE.
+}
+
+
+
+
 
 
 function msgSelonScore(score){
