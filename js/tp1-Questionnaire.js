@@ -12,7 +12,7 @@ function construireInterfaceIntro() {
     fieldset.appendChild(legend);
 
     fieldset.appendChild(creerBaliseX("h1", "titre", "Bienvenue sur le quiz JavaScript de Janelle et Raphaël"));
-    fieldset.appendChild(creerBaliseX("p", "p2", "Nous vous invitons à participer à un petit jeu questionnaire qui comporte 5 questions choisies au hasard dans un ensemble de questions. Chaque question vous donnera un certain nombre de points. À la fin du quiz, vous obtiendrez votre résultat final. Bonne chance! ! 🥰 "));
+    fieldset.appendChild(creerBaliseX("p", "p2", "Nous vous invitons à participer à un petit jeu questionnaire qui comporte 5 questions choisies au hasard dans un ensemble de questions. Chaque question vous donnera un certain nombre de points. À la fin du quiz, vous obtiendrez votre résultat final. Bonne chance! 🥰 "));
 
     const boutonIntro = creerInput("button", "boutonIntro", "", "Commencer le quiz !", "bouton");
     fieldset.appendChild(boutonIntro);
@@ -36,32 +36,37 @@ function construireInterfaceQuestion(questionnaireObj) {
     indexCourrantQuestion++;
     if (indexCourrantQuestion >= questionnaireObj.questions.length) {
         construireInterfaceFinal(questionnaireObj);
-
+    } else {
+        const questionObj = questionnaireObj.questions[indexCourrantQuestion];
+        affichageQuestion(questionObj, questionnaireObj);
+        gererBoutons(questionnaireObj);
     }
-    let questionCourante = questionnaireObj.questions[indexCourrantQuestion];
-    affichageQuestion(questionCourante, questionnaireObj);
-    gererBoutons(questionnaireObj);
 }
 
 function gererBoutons(questionnaireObj) {
     const boutonSuivant = creerInput("button", "boutonSuivant", "", "Question Suivante !", "bouton");
     fieldset.appendChild(boutonSuivant);
+
     boutonSuivant.addEventListener("click", function () {
-        construireInterfaceQuestion(questionnaireObj);
+        const reponseSelectionee = document.querySelector('input[name="reponse"]:checked');
+        if (questionnaireObj.verifierReponse(questionnaireObj.questions, reponseSelectionee)) {
+            console.log(reponseSelectionee);
+            construireInterfaceQuestion(questionnaireObj);
+        }
+        /* Vérifier réponse vérifie si c'est null, si c'est nul, alors message d'Erreur et l'utilisateur doit recommencer.
+         Si c'est pas nul, alors on affiche si bonne réponse ou pas et user peut cliquer sur suivante.
+         Et les radio buttons sont disabled() pour pas qu'il puisse changer sa réponse.*/
     });
 
     const boutonAbandon = creerInput("button", "boutonAbandon", "", "Abandonner", "bouton");
     fieldset.appendChild(boutonAbandon);
     boutonAbandon.addEventListener("click", function () {
-        construireInterfaceAbandon(questionnaireObj);
     });
 }
 
 function affichageQuestion(questionObj, questionnaireObj) {
     viderZoneDeDonnees();
-    //TODO COMPRENDRE L'EXISTENCE DE LA VIE ET DE DIEU
-    const questionText = questionnaireObj.questions[indexCourrantQuestion];
-    const questionCourante = questionObj;
+    const questionText = questionObj.question;
     const reponses = questionObj.reponses;
     fieldset.appendChild(creerBaliseX("h1", "p1", "Question " + (indexCourrantQuestion + 1) + " de 5 pour " + questionObj.nbrePoints + " points"));
     fieldset.appendChild(creerBaliseX("p", "p2", questionText));
@@ -69,7 +74,6 @@ function affichageQuestion(questionObj, questionnaireObj) {
         let choixDeReponse = creerBaliseX("p", "choix");
         choixDeReponse.appendChild(affichageChoixReponses(reponses[i], i + 1));
         fieldset.appendChild(choixDeReponse);
-
     }
 }
 
@@ -125,6 +129,7 @@ function gererInterfaceAbandon(questionnaireObj) {
         creerNouveauJeu();
     });
 }
+
 function main() {
     // Zone de données est l'id du div dans le HTML
     construireInterfaceIntro(zoneDeDonnees);

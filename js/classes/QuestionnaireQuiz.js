@@ -66,13 +66,12 @@ class QuestionnaireQuiz {
 
     //Un peu n'importe quoi mais dans cette idée là
     verifierReponse(question, valeurCochée) {
-        if (valeurCochée === null) {
+        if (valeurCochée == null) {
             alert("Veuillez choisir une réponse ou abandonner !");
         } else {
-            if (question.bonneReponse === valeurCochée) {
-                this._nombreDePoints += question.nbrePoints;
-                question.disable();
-            }
+            //TODO vérifier si c'est la bonne réponse!!
+            return true;
+            console.log("valeurCochée : " + valeurCochée.value);
         }
         return false;
     }
