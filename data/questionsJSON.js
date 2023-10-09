@@ -10,10 +10,10 @@ let tabAssQuestions = [
             "document.getElementsByClassName",
             "document.getElementById",
             "document.getElementsByTagName",
-            "document.getElementsByIds",
+            "document.getElementsByName",
         ],
 
-        "bonneReponse": "document.getElementsByBigMac - A",
+        "bonneReponse": "document.getElementsByBigMac",
         "nbrePoints": 2
     },
 
@@ -22,13 +22,13 @@ let tabAssQuestions = [
 
         "question": "Quelle méthode JavaScript permet de supprimer un élément du DOM ?",
         "reponses": [
-            "removeChild() - A",
+            "removeChild()",
             "disposeElement()",
             "hideElement()",
             "deleteElement()",
             "enleverAppendChild()",
         ],
-        "bonneReponse": "removeChild() - A",
+        "bonneReponse": "removeChild()",
         "nbrePoints": 1
     },
 
@@ -38,7 +38,7 @@ let tabAssQuestions = [
         "question": "Sur quelle structure de conception des objets Javascript est-il basé ?",
         "reponses": [
             "Object",
-            "Prototype - B",
+            "Prototype",
             "Classe",
             "Structure pyramidale",
             "Modeler",
@@ -55,10 +55,10 @@ let tabAssQuestions = [
             "event.cancelBubble()",
             "event.stopPropagation()",
             "event.stopImmediatePropagation()",
-            "event.preventDefault() - D",
+            "event.preventDefault()",
             "event.cancelDefault",
         ],
-        "bonneReponse": "event.preventDefault() - D",
+        "bonneReponse": "event.preventDefault()",
         "nbrePoints": 3
     },
 
@@ -73,7 +73,7 @@ let tabAssQuestions = [
             "$-{ Ceci est un commentaire }-$",
             "++ Ceci est un commentaire --",
         ],
-        "bonneReponse": "// Ceci est un commentaire - C",
+        "bonneReponse": "// Ceci est un commentaire",
         "nbrePoints": 1
 
     },
@@ -84,12 +84,12 @@ let tabAssQuestions = [
         "question": "Quelle méthode JavaScript est utilisée pour supprimer le dernier élément d'un tableau ?",
         "reponses": [
             "push()",
-            "shift() - B",
+            "shift()",
             "pull()",
             "pop()",
             "plabt()",
         ],
-        "bonneReponse": "shift() - B",
+        "bonneReponse": "shift()",
         "nbrePoints": 3
     },
 
@@ -101,10 +101,10 @@ let tabAssQuestions = [
             ".text",
             ".value",
             ".textContent",
-            ".innerHTML - D",
+            ".innerHTML",
             ".innerDeleteSystem32",
         ],
-        "bonneReponse": ".innerHTML - D",
+        "bonneReponse": ".innerHTML",
         "nbrePoints": 2
 
     },
@@ -113,13 +113,13 @@ let tabAssQuestions = [
     {
         "question": "Comment ajoutez-vous un événement de clic à un élément HTML en JavaScript ?",
         "reponses": [
-            "addEventListener('click', myFunction) - A",
+            "addEventListener('click', myFunction)",
             "onclick = myFunction()",
             "event.stopInvention()",
             "addRessource('click', myFunction)",
             "addElementDom('radio', myFunction)",
         ],
-        "bonneReponse": "addEventListener('click', myFunction) - A",
+        "bonneReponse": "addEventListener('click', myFunction)",
         "nbrePoints": 3
     },
 
@@ -129,12 +129,12 @@ let tabAssQuestions = [
         "question": "Comment faut-il déclarer une variable en JavaScript ?",
         "reponses": [
             "int valeur = 1",
-            "varbus valeur = 1",
-            "let valeur = 1 - C",
+            "varBus2 valeur = 1",
+            "let valeur = 1",
             "laite valeur = 1",
             "VarChar2 = 1"
         ],
-        "bonneReponse": "let valeur = 1 - C",
+        "bonneReponse": "let valeur = 1",
         "nbrePoints": 1
     },
     {
@@ -143,11 +143,11 @@ let tabAssQuestions = [
         "reponses": [
             "/",
             "-",
-            "+ - C",
+            "+",
             "+=",
             "|"
         ],
-        "bonneReponse": "+ - C",
+        "bonneReponse": "+",
         "nbrePoints": 2
     },
 
@@ -157,11 +157,11 @@ let tabAssQuestions = [
         "reponses": [
             "Pouvoir mettre des gros boutons rouges partout sur les pages webs",
             "Ajouter des fonctionnalités interactives aux pages web",
-            "Ajouter des fonctionnalités dynamiques aux pages web - C",
+            "Ajouter des fonctionnalités dynamiques aux pages web",
             "Ajouter des fonctionnalités statiques aux pages web",
             "Ajouter des fonctionnalités coopératives"
         ],
-        "bonneReponse": "Ajouter des fonctionnalités dynamiques aux pages web - C",
+        "bonneReponse": "Ajouter des fonctionnalités dynamiques aux pages web",
         "nbrePoints": 1
     },
 
@@ -172,10 +172,10 @@ let tabAssQuestions = [
             "let tableau = new Array()",
             "let tableau = {}",
             "let tableau = null",
-            "let tableau = [] - D",
+            "let tableau = []",
             "let tableau = [i]"
         ],
-        "bonneReponse": "let tableau = [] - D",
+        "bonneReponse": "let tableau = []",
         "nbrePoints": 2
     },
 
@@ -184,12 +184,12 @@ let tabAssQuestions = [
         "question": "Quelle méthode JavaScript permet de faire une jointure entre 2 tableaux ?",
         "reponses": [
             "tableau.join()",
-            "tableau.concat() - B",
+            "tableau.concat()",
             "tableau.merge()",
             "tableau.add()",
             "tableau.pullup()"
         ],
-        "bonneReponse": "tableau.concat() - B",
+        "bonneReponse": "tableau.concat()",
         "nbrePoints": 1
     },
     {
@@ -198,11 +198,11 @@ let tabAssQuestions = [
         "reponses": [
             "querySelectorAll()",
             "getElementbyId()",
-            "querySelector() - C",
+            "querySelector()",
             "dairyQuerySelector()",
             "querryQuerryAll()"
         ],
-        "bonneReponse": "querySelector() - C",
+        "bonneReponse": "querySelector()",
         "nbrePoints": 3
     },
 
@@ -210,13 +210,13 @@ let tabAssQuestions = [
     {
         "question": "Comment écrit-on une conditionnelle en Javascript ?",
         "reponses": [
-            "if (i == 5){ } - A",
+            "if (i == 5){ }",
             "if i == 5 then { },",
             "si (i == 5) alors { }",
             "if i == 5 { }",
             "if i == 5 then j"
         ],
-        "bonneReponse": "if (i == 5){ } - A",
+        "bonneReponse": "if (i == 5){ }",
         "nbrePoints": 1
     }
 

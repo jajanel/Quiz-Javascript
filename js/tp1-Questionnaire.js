@@ -51,9 +51,9 @@ function afficherBoutonVerifier(questionnaireObj) {
 }
 function verifierReponse(questionnaireObj) {
     const reponseSelectionee = document.querySelector('input[name="reponse"]:checked');
-    if (!reponseSelectionee) {
+    /*if (!reponseSelectionee) {
         alert("Veuillez sélectionner une réponse ou abandonner le quiz.");
-    }
+    }*/
 
     if (verificationReponseFaite) {
 
@@ -61,9 +61,10 @@ function verifierReponse(questionnaireObj) {
         const questionObj = questionnaireObj.questions[indexCourrantQuestion];
         const laBonneReponse = questionObj.bonneReponse;
 
-        const labelReponseSelectionne = document.querySelector(`label[for="${reponseSelectionee.id}"]`);
+        questionnaireObj.verifierBonneReponse(questionObj, reponseSelectionee);
 
-        if (reponseSelectionee.value === laBonneReponse) {
+        //const labelReponseSelectionne = document.querySelector(`label[for="${reponseSelectionee.id}"]`);
+        /*if (reponseSelectionee.value === laBonneReponse) {
             labelReponseSelectionne.style.color = "green";
             labelReponseSelectionne.innerText += "   ✔  ";
             console.log("Bonne réponse");
@@ -71,9 +72,8 @@ function verifierReponse(questionnaireObj) {
         } else {
             labelReponseSelectionne.style.color = "red";
             labelReponseSelectionne.style.textDecoration = "line-through";
-
             console.log("Mauvaise réponse");
-        }
+        }*/
 
         questionnaireObj.nombreDePointsMax += questionObj.nbrePoints;
         verificationReponseFaite = true;
@@ -119,7 +119,7 @@ function affichageQuestion(questionObj, questionnaireObj) {
 function affichageChoixReponses(reponse, index) {
     let ligneReponse = document.createElement("p");
     ligneReponse.appendChild(creerInput("radio", "reponse" + index, "reponse", reponse));
-    ligneReponse.appendChild(creerLabel("pRep", "reponse" + index, reponse));
+    ligneReponse.appendChild(creerLabel("pRep"+1, "reponse" + index, reponse, "pRep"));
     return ligneReponse;
 }
 function construireInterfaceResultats(questionnaireObj) {

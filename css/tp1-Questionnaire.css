@@ -80,7 +80,7 @@ legend{
     display: block;
 }
 
-#pRep {
+#pRep, .pRep {
     margin: 16px 16px;
     font-size: 20px;
     font-weight: bold;
@@ -109,7 +109,7 @@ legend{
     display: block;
 }
 
-.pMauvaiseReponse {
+#pMauvaiseReponse {
     color: red;
     margin: 16px 16px;
     font-size: 20px;

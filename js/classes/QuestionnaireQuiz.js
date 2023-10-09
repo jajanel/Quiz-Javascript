@@ -62,7 +62,6 @@ class QuestionnaireQuiz {
     }
 
 
-
     calculerPoints() {
         // Implement logic to calculate points based on user responses
         // For example, you can iterate through this._questions and check user responses
@@ -72,18 +71,23 @@ class QuestionnaireQuiz {
     }
 
 
-
     //Un peu n'importe quoi mais dans cette idée là
-    verifierReponse(question, valeurCochée) {
-        let valeurAeteCochee= false;
+    verifierBonneReponse(question, valeurCochée) {
+        let valeurAeteCochee = false;
         if (valeurCochée == null) {
             alert("Veuillez choisir une réponse ou abandonner !");
         } else {
-            //TODO vérifier si c'est la bonne réponse!!
-            valeurAeteCochee = true;
-            console.log("valeurCochée : " + valeurCochée.value);
+            if (valeurCochée.value === question.bonneReponse) {
+                valeurCochée.setAttribute("pRep", "pBonneRéponse")
+                //rien fonctionne
+
+                valeurAeteCochee = true;
+
+            } else {
+
+            }
+            return valeurAeteCochee;
         }
-        return valeurAeteCochee;
     }
 
 }
