@@ -43,51 +43,45 @@ function construireInterfaceQuestion(questionnaireObj) {
     }
 }
 
-function gererBoutons(questionnaireObj) {
-    let boutonVerifier = null;
+function afficherBoutonVerifier(questionnaireObj) {
+    const boutonVerifier = creerInput("button", "boutonVerifier", "", "Verifier le resultat", "bouton");
+    fieldset.appendChild(boutonVerifier);
 
-    function afficherBoutonVerifier() {
-        boutonVerifier = creerInput("button", "boutonVerifier", "", "Verifier le resultat", "bouton");
-        fieldset.appendChild(boutonVerifier);
+    boutonVerifier.addEventListener("click", function () {
+        const reponseSelectionee = document.querySelector('input[name="reponse"]:checked');
+        if (!reponseSelectionee) {
+            alert("Veuillez sélectionner une réponse ou abandonner le quiz.");
+            return;
+        }
 
+        const questionObj = questionnaireObj.questions[indexCourrantQuestion];
+        const correctAnswer = questionObj.bonneReponse;
+
+        reponseSelectionee.setAttribute("style", "color: red;");
+
+        if (reponseSelectionee.value === correctAnswer) {
+            reponseSelectionee.setAttribute("style", "color: red;");
+            console.log("Bonne réponse");
+        } else {
+            reponseSelectionee.classList.add("pMauvaiseReponse");
+            console.log("Mauvaise réponse");
+        }
+
+        disabledRadio();
+
+        boutonVerifier.value = "Question Suivante !";
+        boutonVerifier.removeEventListener("click", afficherBoutonVerifier);
         boutonVerifier.addEventListener("click", function () {
-            const reponseSelectionee = document.querySelector('input[name="reponse"]:checked');
-            if (!reponseSelectionee) {
-                alert("Veuillez sélectionner une réponse ou abandonner le quiz.");
-                return;
-            }
-
-            const questionObj = questionnaireObj.questions[indexCourrantQuestion];
-            const correctAnswer = questionObj.bonneReponse;
-
-            if (reponseSelectionee.value === correctAnswer) {
-                reponseSelectionee.classList.add("pBonneRéponse");
-
-            } else {
-                // The selected answer is incorrect
-                reponseSelectionee.classList.add("pMauvaiseReponse");
-            }
-
-            const reponsesRadio = document.querySelectorAll('input[name="reponse"]');
-            reponsesRadio.forEach((radio) => {
-                radio.disabled = true;
-            });
-
-
-            disabledRadio();
-
-            boutonVerifier.value = "Question Suivante !";
-            boutonVerifier.removeEventListener("click", afficherBoutonVerifier);
-            boutonVerifier.addEventListener("click", function () {
-                boutonVerifier.value = "Verifier le resultat";
-                boutonVerifier.classList.add('hidden');
-                boutonAbandon.classList.remove('hidden');
-                construireInterfaceQuestion(questionnaireObj);
-            });
+            boutonVerifier.value = "Verifier le resultat";
+            boutonVerifier.classList.add('hidden');
+            boutonAbandon.classList.remove('hidden');
+            construireInterfaceQuestion(questionnaireObj);
         });
-    }
+    });
+}
 
-    afficherBoutonVerifier();
+function gererBoutons(questionnaireObj) {
+    afficherBoutonVerifier(questionnaireObj);
 
     const boutonAbandon = creerInput("button", "boutonAbandon", "", "Abandonner", "bouton");
     fieldset.appendChild(boutonAbandon);
