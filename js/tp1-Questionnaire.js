@@ -8,6 +8,14 @@ zoneDeDonnees.appendChild(fieldset);
 let indexCourrantQuestion = -1;
 let verificationReponseFaite = false;
 let abandon = false;
+
+function imageBackground(){
+    let body = document.querySelector("body");
+    body.appendChild(creerBaliseX("img", "background", "", "background"));
+    //S'en occuper plus tard, pas la priorité...
+}
+
+
 function construireInterfaceIntro() {
     viderZoneDeDonnees();
     legend.textContent = "Intro";
@@ -50,7 +58,7 @@ function afficherBoutonVerifier(questionnaireObj) {
     });
 }
 function verifierReponse(questionnaireObj) {
-    const reponseSelectionee = document.querySelector('input[name="reponse"]:checked');
+    const reponseSelectionee = document.querySelector('input[name="reponse"]:checked').value;
     /*if (!reponseSelectionee) {
         alert("Veuillez sélectionner une réponse ou abandonner le quiz.");
     }*/
@@ -58,8 +66,8 @@ function verifierReponse(questionnaireObj) {
     if (verificationReponseFaite) {
 
     } else {
-        const questionObj = questionnaireObj.questions[indexCourrantQuestion];
-        const laBonneReponse = questionObj.bonneReponse;
+        let questionObj = questionnaireObj.questions[indexCourrantQuestion];
+        const laBonneReponse = questionObj.bonneReponse.value;
 
         questionnaireObj.verifierBonneReponse(questionObj, reponseSelectionee);
 
@@ -119,7 +127,7 @@ function affichageQuestion(questionObj, questionnaireObj) {
 function affichageChoixReponses(reponse, index) {
     let ligneReponse = document.createElement("p");
     ligneReponse.appendChild(creerInput("radio", "reponse" + index, "reponse", reponse));
-    ligneReponse.appendChild(creerLabel("pRep"+1, "reponse" + index, reponse, "pRep"));
+    ligneReponse.appendChild(creerLabel(reponse, "reponse" + index, reponse, "pRep"));
     return ligneReponse;
 }
 function construireInterfaceResultats(questionnaireObj) {

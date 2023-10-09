@@ -30,9 +30,14 @@ class Question {
 
 }
 
-//Verif si la reponse est bonne ici
+
+/**
+ * Fonction qui valide si la reponse est la bonne
+ * @param reponseDonnee
+ */
     function valideReponse(reponseDonnee) {
-        this.reponseDonnee === reponseDonnee;
+        this.reponses === reponseDonnee;
+
     }
 
 

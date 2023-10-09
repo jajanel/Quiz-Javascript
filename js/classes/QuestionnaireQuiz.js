@@ -71,14 +71,19 @@ class QuestionnaireQuiz {
     }
 
 
-    //Un peu n'importe quoi mais dans cette idée là
+    /**
+     * Vérifie si la réponse est bonne
+     * @param question {Question}
+     * @param valeurCochée {string}
+     * @returns {boolean}
+     */
     verifierBonneReponse(question, valeurCochée) {
         let valeurAeteCochee = false;
         if (valeurCochée == null) {
             alert("Veuillez choisir une réponse ou abandonner !");
         } else {
-            if (valeurCochée.value === question.bonneReponse) {
-                valeurCochée.setAttribute("pRep", "pBonneRéponse")
+            if (question.valideReponse(valeurCochée)) {
+                
                 //rien fonctionne
 
                 valeurAeteCochee = true;
