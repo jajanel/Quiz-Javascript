@@ -49,8 +49,6 @@ function afficherBoutonVerifier(questionnaireObj) {
         verifierReponse(questionnaireObj);
     });
 }
-
-
 function verifierReponse(questionnaireObj) {
     const reponseSelectionee = document.querySelector('input[name="reponse"]:checked');
     if (!reponseSelectionee) {
@@ -58,22 +56,22 @@ function verifierReponse(questionnaireObj) {
     }
 
     if (verificationReponseFaite) {
-        console.log("La vérification de la réponse est déjà complétée.");
+
     } else {
         const questionObj = questionnaireObj.questions[indexCourrantQuestion];
         const laBonneReponse = questionObj.bonneReponse;
 
-        // Find the associated label for the checked radio button
-        const labelForSelectedAnswer = document.querySelector(`label[for="${reponseSelectionee.id}"]`);
+        const labelReponseSelectionne = document.querySelector(`label[for="${reponseSelectionee.id}"]`);
 
         if (reponseSelectionee.value === laBonneReponse) {
-            // Correct answer, set label color to green
-            labelForSelectedAnswer.style.color = "green";
+            labelReponseSelectionne.style.color = "green";
+            labelReponseSelectionne.innerText += "   ✔  ";
             console.log("Bonne réponse");
             questionnaireObj.nombreDePoints += questionObj.nbrePoints;
         } else {
-            // Incorrect answer, set label color to red
-            labelForSelectedAnswer.style.color = "red";
+            labelReponseSelectionne.style.color = "red";
+            labelReponseSelectionne.style.textDecoration = "line-through";
+
             console.log("Mauvaise réponse");
         }
 
@@ -86,7 +84,7 @@ function verifierReponse(questionnaireObj) {
         boutonVerifier.removeEventListener("click", verifierReponse);
 
         boutonVerifier.addEventListener("click", function () {
-            boutonVerifier.value = "Verifier le resultat";
+            boutonVerifier.value = "Vérifier la réponse";
             boutonVerifier.classList.add('hidden');
             boutonAbandon.classList.remove('hidden');
 
@@ -94,8 +92,6 @@ function verifierReponse(questionnaireObj) {
         });
     }
 }
-
-
 function gererBoutons(questionnaireObj) {
     afficherBoutonVerifier(questionnaireObj);
     const boutonAbandon = creerInput("button", "boutonAbandon", "", "Abandonner", "bouton");
@@ -105,7 +101,6 @@ function gererBoutons(questionnaireObj) {
         construireInterfaceResultats(questionnaireObj);
     });
 }
-
 function affichageQuestion(questionObj, questionnaireObj) {
     viderZoneDeDonnees();
     legend.textContent = "Questionnaire";
@@ -121,14 +116,12 @@ function affichageQuestion(questionObj, questionnaireObj) {
         //C'est pas forcément ici, mais on pourrait faire que si on voit que y'a pas de question restante, qu'on change le bouton pour "voir les résultats" et que ça mène à la page des résultats.
     }
 }
-
 function affichageChoixReponses(reponse, index) {
     let ligneReponse = document.createElement("p");
     ligneReponse.appendChild(creerInput("radio", "reponse" + index, "reponse", reponse));
     ligneReponse.appendChild(creerLabel("pRep", "reponse" + index, reponse));
     return ligneReponse;
 }
-
 function construireInterfaceResultats(questionnaireObj) {
     viderZoneDeDonnees();
     legend.textContent = "Résultats";

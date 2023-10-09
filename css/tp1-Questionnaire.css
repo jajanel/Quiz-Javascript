@@ -151,10 +151,3 @@ legend{
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
-.hidden {
-    display: none;
-}
-
-.incorrect-answer {
-    color: red;
-}
