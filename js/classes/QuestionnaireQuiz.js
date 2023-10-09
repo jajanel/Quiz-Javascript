@@ -5,9 +5,18 @@ class QuestionnaireQuiz {
     constructor(questions) {
         this._indexQuestion = 0;
         this._nombreDePoints = 0;
+        this._nombreDePointsMax = 0;
         this._questions = JSONaObjectJS();
     }
 
+
+    get nombreDePointsMax() {
+        return this._nombreDePointsMax;
+    }
+
+    set nombreDePointsMax(value) {
+        this._nombreDePointsMax = value;
+    }
 
     get indexCourrantQuestion() {
         return this._indexCourrantQuestion++;

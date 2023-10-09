@@ -109,7 +109,7 @@ legend{
     display: block;
 }
 
-#pMauvaiseReponse {
+.pMauvaiseReponse {
     color: red;
     margin: 16px 16px;
     font-size: 20px;
@@ -120,7 +120,7 @@ legend{
 
 }
 
-#pBonneRéponse {
+.pBonneRéponse {
     color: green;
     margin: 16px 16px;
     font-size: 20px;
