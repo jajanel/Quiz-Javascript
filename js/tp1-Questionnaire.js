@@ -52,10 +52,19 @@ function gererBoutons(questionnaireObj) {
 
         boutonVerifier.addEventListener("click", function () {
             const reponseSelectionee = document.querySelector('input[name="reponse"]:checked');
-
             if (!reponseSelectionee) {
                 alert("Veuillez sélectionner une réponse ou abandonner le quiz.");
                 return;
+            }
+            const questionObj = questionnaireObj.questions[indexCourrantQuestion];
+            const correctAnswer = questionObj.bonneReponse;
+
+            if (reponseSelectionee.value === correctAnswer) {
+                reponseSelectionee.classList.add("pBonneRéponse");
+
+            } else {
+                // The selected answer is incorrect
+                reponseSelectionee.classList.add("pMauvaiseReponse");
             }
 
             const reponsesRadio = document.querySelectorAll('input[name="reponse"]');

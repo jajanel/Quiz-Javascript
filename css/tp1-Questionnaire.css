@@ -109,14 +109,13 @@ legend{
     display: block;
 }
 
-#pMauvaiseRéponse {
+#pMauvaiseReponse {
     color: red;
     margin: 16px 16px;
     font-size: 20px;
     font-weight: bold;
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     text-align: left;
-    display: block;
     text-decoration: line-through;
 
 }
@@ -155,4 +154,8 @@ legend{
 
 .hidden {
     display: none;
+}
+
+.incorrect-answer {
+    color: red;
 }

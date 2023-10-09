@@ -13,33 +13,21 @@ class Question {
         return this._question;
     }
 
-    set question(value) {
-        this._question = value;
-    }
 
     get reponses() {
         return this._reponses;
     }
 
-    set reponses(value) {
-        this._reponses = value;
-    }
 
     get bonneReponse() {
         return this._bonneReponse;
     }
 
-    set bonneReponse(value) {
-        this._bonneReponse = value;
-    }
 
     get nbrePoints() {
         return this._nbrePoints;
     }
 
-    set nbrePoints(value) {
-        this._nbrePoints = value;
-    }
 }
 
 //Verif si la reponse est bonne ici
