@@ -74,22 +74,32 @@ class QuestionnaireQuiz {
     /**
      * Vérifie si la réponse est bonne
      * @param question {Question}
-     * @param valeurCochée {string}
+     * @param valeurChecked {string}
      * @returns {boolean}
      */
-    verifierBonneReponse(question, valeurCochée) {
+    verifierBonneReponse(question, valeurChecked) {
         let valeurAeteCochee = false;
-        if (valeurCochée == null) {
+        if (valeurChecked == null) {
             alert("Veuillez choisir une réponse ou abandonner !");
         } else {
-            if (question.valideReponse(valeurCochée)) {
-                
-                //rien fonctionne
+            console.log(valeurChecked);
+            console.log(question.bonneReponse);
+            if (question.valideReponse(valeurChecked)) {
+                console.log("Bonne réponse");
+                let id = document.getElementById(valeurChecked);
+                id.style.color = "green";
+                id.innerText += " ✔️";
+
+
 
                 valeurAeteCochee = true;
 
             } else {
-
+                let id = document.getElementById(valeurChecked);
+                id.style.color = "red";
+                id.innerText += " ❌";
+                id.style.textDecoration = "line-through";
+//L'id de ma bonne réponse, c'Est le même que la string qu'il contient. - Fabien, 2023
             }
             return valeurAeteCochee;
         }

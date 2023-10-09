@@ -58,30 +58,19 @@ function afficherBoutonVerifier(questionnaireObj) {
     });
 }
 function verifierReponse(questionnaireObj) {
-    const reponseSelectionee = document.querySelector('input[name="reponse"]:checked').value;
-    /*if (!reponseSelectionee) {
-        alert("Veuillez sélectionner une réponse ou abandonner le quiz.");
-    }*/
-
+    let listeReponse = document.querySelectorAll("input");
+    let reponseSelectionee = null;
+    for (let rep of listeReponse){
+        if (rep.checked){
+            reponseSelectionee = rep.value;
+        }
+    }
     if (verificationReponseFaite) {
 
     } else {
         let questionObj = questionnaireObj.questions[indexCourrantQuestion];
         const laBonneReponse = questionObj.bonneReponse.value;
-
         questionnaireObj.verifierBonneReponse(questionObj, reponseSelectionee);
-
-        //const labelReponseSelectionne = document.querySelector(`label[for="${reponseSelectionee.id}"]`);
-        /*if (reponseSelectionee.value === laBonneReponse) {
-            labelReponseSelectionne.style.color = "green";
-            labelReponseSelectionne.innerText += "   ✔  ";
-            console.log("Bonne réponse");
-            questionnaireObj.nombreDePoints += questionObj.nbrePoints;
-        } else {
-            labelReponseSelectionne.style.color = "red";
-            labelReponseSelectionne.style.textDecoration = "line-through";
-            console.log("Mauvaise réponse");
-        }*/
 
         questionnaireObj.nombreDePointsMax += questionObj.nbrePoints;
         verificationReponseFaite = true;
