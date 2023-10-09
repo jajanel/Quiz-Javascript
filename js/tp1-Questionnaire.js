@@ -5,9 +5,10 @@ const fieldset = creerFieldset("fieldset");
 zoneDeDonnees.appendChild(fieldset);
 let indexCourrantQuestion = -1;
 let verificationReponseFaite = false;
+const legend = document.createElement("legend");
+let abandon = false;
 function construireInterfaceIntro() {
     viderZoneDeDonnees();
-    const legend = document.createElement("legend");
     legend.textContent = "Intro";
     fieldset.appendChild(legend);
 
@@ -32,11 +33,12 @@ function creerNouveauJeu() {
 
 
 function construireInterfaceQuestion(questionnaireObj) {
+
     indexCourrantQuestion++;
     verificationReponseFaite = false;
 
     if (indexCourrantQuestion >= questionnaireObj.questions.length) {
-        construireInterfaceFinal(questionnaireObj);
+        construireInterfaceResultats(questionnaireObj);
     } else {
         const questionObj = questionnaireObj.questions[indexCourrantQuestion];
         affichageQuestion(questionObj, questionnaireObj);
@@ -72,13 +74,14 @@ function verifierReponse(questionnaireObj) {
     if (reponseSelectionee.value === laBonneReponse) {
         reponseSelectionee.setAttribute("style", "color: red;");
         console.log("Bonne réponse");
+        questionnaireObj.nombreDePoints += questionObj.nbrePoints;
     } else {
         reponseSelectionee.classList.add("pMauvaiseReponse");
         console.log("Mauvaise réponse");
     }
     verificationReponseFaite = true;
 
-    disabledRadio();
+    radioDesactives();
 
     const boutonVerifier = document.getElementById("boutonVerifier");
     boutonVerifier.value = "Question Suivante !";
@@ -96,12 +99,15 @@ function gererBoutons(questionnaireObj) {
     const boutonAbandon = creerInput("button", "boutonAbandon", "", "Abandonner", "bouton");
     fieldset.appendChild(boutonAbandon);
     boutonAbandon.addEventListener("click", function () {
-        construireInterfaceAbandon(questionnaireObj);
+        abandon = true;
+        construireInterfaceResultats(questionnaireObj);
     });
 }
 
 function affichageQuestion(questionObj, questionnaireObj) {
     viderZoneDeDonnees();
+    legend.textContent = "Questionnaire";
+    fieldset.appendChild(legend);
     const questionEcrite = questionObj.question;
     const reponses = questionObj.reponses;
     fieldset.appendChild(creerBaliseX("h1", "p1", "Question " + (indexCourrantQuestion + 1) + " de 5 pour " + questionObj.nbrePoints + " points"));
@@ -120,49 +126,33 @@ function affichageChoixReponses(reponse, index) {
     return ligneReponse;
 }
 
-function construireInterfaceFinal(questionnaireObj) {
+function construireInterfaceResultats(questionnaireObj) {
     viderZoneDeDonnees();
-    //legend.textContent = "Résultats";
+    legend.textContent = "Résultats";
+    fieldset.appendChild(legend);
     fieldset.appendChild(creerBaliseX("h1", "titre",));
     fieldset.appendChild(creerBaliseX("p", "resultat", "", ""));
     fieldset.appendChild(creerBaliseX("p", "nombreDePoints"));
     const boutonRejouer = creerInput("button", "boutonRejouer", "", "Rejouer !", "bouton");
     fieldset.appendChild(boutonRejouer);
-    gererInterfaceFinal(questionnaireObj);
+    gererInterfaceResultats(questionnaireObj);
 }
 
-function gererInterfaceFinal(questionnaireObj) {
-    let scoreFinal = 0;
-    //questionnaireObj.calculerPoints();
-    let msgEncouragement = msgSelonScore(scoreFinal);
-    // TODO Créer une fonction qui va calculer le pourcentage de la note. Considerer que si l'user abandonne, c'est pas nécessairement 5 questions qu'il a répondu.
-    let notePourcentage = scoreFinal / 50 * 100;
 
-    titre.textContent = "Voici votre résultat final: ";
-    resultat.textContent = "Tu as eu un score de " + scoreFinal + " points, ce qui fait une note de: " + notePourcentage + " ." + msgEncouragement;
-    boutonRejouer.addEventListener("click", creerNouveauJeu);
-}
-
-function construireInterfaceAbandon(questionnaireObj) {
-    viderZoneDeDonnees();
-    fieldset.appendChild(creerBaliseX("h1", "titre"));
-    fieldset.appendChild(creerBaliseX("p", "resultat"));
-    fieldset.appendChild(creerBaliseX("p", "nombreDePoints"));
-    const boutonRejouer = creerInput("button", "boutonRejouer", "", "Rejouer !", "bouton");
-    fieldset.appendChild(boutonRejouer);
-    gererInterfaceAbandon(questionnaireObj);
-}
-
-function gererInterfaceAbandon(questionnaireObj) {
-    let scoreFinal = 0;
-    let notePourcentage = calculerPoucentage(scoreFinal, 2);
-    titre.textContent = "Voici votre résultat, même si vous avez abandonné...";
-    resultat.textContent = "Tu as eu un score de " + scoreFinal + " points, ce qui fait une note de: " + notePourcentage + " ." + msgSelonScore(scoreFinal);
+function gererInterfaceResultats(questionnaireObj) {
+    let scoreFinal = questionnaireObj.calculerPoints();
+    let notePourcentage = calculerPoucentage(questionnaireObj.nombreDePoints, 2)
+    if (abandon === true){
+        titre.textContent = "Voici votre résultat, même si vous avez abandonné...";
+    } else if (abandon === false){
+        titre.textContent = "Voici votre résultat final: ";
+    }
+    resultat.textContent = "Tu as eu un score de " + questionnaireObj.nombreDePoints + " points, ce qui fait une note de: " + notePourcentage + " ." + msgSelonScore(scoreFinal);
 
     boutonRejouer.addEventListener("click", creerNouveauJeu);
 }
 
-function disabledRadio() {
+function radioDesactives() {
     let radios = document.getElementsByName("reponse");
     for (let i = 0; i < radios.length; i++) {
         radios[i].disabled = true;

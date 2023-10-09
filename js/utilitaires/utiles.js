@@ -13,6 +13,7 @@ function shuffleArray(array) {
 function calculerPoucentage(scoreFinal, nbrQuestionRepondue){
     //TODO VARIABLE DU NOMBRE DE POINTS ACCUMULÉ ET VARIABLE DU NOMBRE DE QUESTIONS RÉPONDUES (YA CLAIREMENT QUELQUE CHOSE À FAIRE AVEC INDEX E QUESTION -1 OU JSP ON VERRA)
     // DIVISÉ PAR NOMBRE DE QUESTION JSP COMMENT FAIRE UN POURCENTAGE.
+    return (scoreFinal / nbrQuestionRepondue) * 100;
 }
 
 
@@ -23,7 +24,7 @@ function calculerPoucentage(scoreFinal, nbrQuestionRepondue){
 function msgSelonScore(score){
     let laStringDeTexte = "";
     if (score > 0 && score < 30){
-        laStringDeTexte = "vous êtes vraiment nul ! Il va falloir réviser encore...";
+        laStringDeTexte = "Vous êtes vraiment nul ! Il va falloir réviser encore...";
     } else if ( score >= 30 && score < 60){
         laStringDeTexte = "Vous auriez quand même pu faire mieux... Aller hop, on révise !";
     } else if (score >= 60 && score < 70){
