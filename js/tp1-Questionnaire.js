@@ -4,7 +4,7 @@ const zoneDeDonnees = document.getElementById("zoneDeDonnees");
 const fieldset = creerFieldset("fieldset");
 zoneDeDonnees.appendChild(fieldset);
 let indexCourrantQuestion = -1;
-let verificationDone = false;
+let verificationReponseFaite = false;
 function construireInterfaceIntro() {
     viderZoneDeDonnees();
     const legend = document.createElement("legend");
@@ -33,8 +33,7 @@ function creerNouveauJeu() {
 
 function construireInterfaceQuestion(questionnaireObj) {
     indexCourrantQuestion++;
-    // Reset verificationDone when moving to the next question
-    verificationDone = false;
+    verificationReponseFaite = false;
 
     if (indexCourrantQuestion >= questionnaireObj.questions.length) {
         construireInterfaceFinal(questionnaireObj);
@@ -59,29 +58,25 @@ function verifierReponse(questionnaireObj) {
     const reponseSelectionee = document.querySelector('input[name="reponse"]:checked');
     if (!reponseSelectionee) {
         alert("Veuillez sélectionner une réponse ou abandonner le quiz.");
+        //TODO enlever les returns
         return;
     }
-
-    // Check if verification has already been done
-    if (verificationDone) {
+    if (verificationReponseFaite) {
         return;
     }
-
     const questionObj = questionnaireObj.questions[indexCourrantQuestion];
-    const correctAnswer = questionObj.bonneReponse;
+    const laBonneReponse = questionObj.bonneReponse;
 
     reponseSelectionee.setAttribute("style", "color: red;");
 
-    if (reponseSelectionee.value === correctAnswer) {
+    if (reponseSelectionee.value === laBonneReponse) {
         reponseSelectionee.setAttribute("style", "color: red;");
         console.log("Bonne réponse");
     } else {
         reponseSelectionee.classList.add("pMauvaiseReponse");
         console.log("Mauvaise réponse");
     }
-
-    // Set verificationDone to true
-    verificationDone = true;
+    verificationReponseFaite = true;
 
     disabledRadio();
 
@@ -98,10 +93,8 @@ function verifierReponse(questionnaireObj) {
 
 function gererBoutons(questionnaireObj) {
     afficherBoutonVerifier(questionnaireObj);
-
     const boutonAbandon = creerInput("button", "boutonAbandon", "", "Abandonner", "bouton");
     fieldset.appendChild(boutonAbandon);
-
     boutonAbandon.addEventListener("click", function () {
         construireInterfaceAbandon(questionnaireObj);
     });
@@ -109,10 +102,10 @@ function gererBoutons(questionnaireObj) {
 
 function affichageQuestion(questionObj, questionnaireObj) {
     viderZoneDeDonnees();
-    const questionText = questionObj.question;
+    const questionEcrite = questionObj.question;
     const reponses = questionObj.reponses;
     fieldset.appendChild(creerBaliseX("h1", "p1", "Question " + (indexCourrantQuestion + 1) + " de 5 pour " + questionObj.nbrePoints + " points"));
-    fieldset.appendChild(creerBaliseX("p", "p2", questionText));
+    fieldset.appendChild(creerBaliseX("p", "p2", questionEcrite));
     for (let i = 0; i < reponses.length; i++) {
         let choixDeReponse = creerBaliseX("p", "choix");
         choixDeReponse.appendChild(affichageChoixReponses(reponses[i], i + 1));
