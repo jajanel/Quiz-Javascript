@@ -56,6 +56,7 @@ function gererBoutons(questionnaireObj) {
                 alert("Veuillez sélectionner une réponse ou abandonner le quiz.");
                 return;
             }
+
             const questionObj = questionnaireObj.questions[indexCourrantQuestion];
             const correctAnswer = questionObj.bonneReponse;
 
@@ -71,6 +72,9 @@ function gererBoutons(questionnaireObj) {
             reponsesRadio.forEach((radio) => {
                 radio.disabled = true;
             });
+
+
+            disabledRadio();
 
             boutonVerifier.value = "Question Suivante !";
             boutonVerifier.removeEventListener("click", afficherBoutonVerifier);
@@ -157,6 +161,13 @@ function gererInterfaceAbandon(questionnaireObj) {
     boutonRejouer.addEventListener("click", function () {
         creerNouveauJeu();
     });
+}
+
+function disabledRadio() {
+    let radios = document.getElementsByName("reponse");
+    for (let i = 0; i < radios.length; i++) {
+        radios[i].disabled = true;
+    }
 }
 
 function main() {
