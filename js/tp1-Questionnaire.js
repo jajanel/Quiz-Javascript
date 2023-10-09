@@ -4,7 +4,7 @@ const zoneDeDonnees = document.getElementById("zoneDeDonnees");
 const fieldset = creerFieldset("fieldset");
 zoneDeDonnees.appendChild(fieldset);
 let indexCourrantQuestion = -1;
-
+let verificationDone = false;
 function construireInterfaceIntro() {
     viderZoneDeDonnees();
     const legend = document.createElement("legend");
@@ -16,9 +16,7 @@ function construireInterfaceIntro() {
 
     const boutonIntro = creerInput("button", "boutonIntro", "", "Commencer le quiz !", "bouton");
     fieldset.appendChild(boutonIntro);
-    boutonIntro.addEventListener("click", function () {
-        creerNouveauJeu();
-    });
+    boutonIntro.addEventListener("click", creerNouveauJeu);
 }
 
 function viderZoneDeDonnees() {
@@ -32,8 +30,12 @@ function creerNouveauJeu() {
     construireInterfaceQuestion(questionnaireObj);
 }
 
+
 function construireInterfaceQuestion(questionnaireObj) {
     indexCourrantQuestion++;
+    // Reset verificationDone when moving to the next question
+    verificationDone = false;
+
     if (indexCourrantQuestion >= questionnaireObj.questions.length) {
         construireInterfaceFinal(questionnaireObj);
     } else {
@@ -42,41 +44,55 @@ function construireInterfaceQuestion(questionnaireObj) {
         gererBoutons(questionnaireObj);
     }
 }
-
 function afficherBoutonVerifier(questionnaireObj) {
     const boutonVerifier = creerInput("button", "boutonVerifier", "", "Verifier le resultat", "bouton");
     fieldset.appendChild(boutonVerifier);
 
     boutonVerifier.addEventListener("click", function () {
-        const reponseSelectionee = document.querySelector('input[name="reponse"]:checked');
-        if (!reponseSelectionee) {
-            alert("Veuillez sélectionner une réponse ou abandonner le quiz.");
-            return;
-        }
+        verifierReponse(questionnaireObj);
+    });
+}
 
-        const questionObj = questionnaireObj.questions[indexCourrantQuestion];
-        const correctAnswer = questionObj.bonneReponse;
 
+
+function verifierReponse(questionnaireObj) {
+    const reponseSelectionee = document.querySelector('input[name="reponse"]:checked');
+    if (!reponseSelectionee) {
+        alert("Veuillez sélectionner une réponse ou abandonner le quiz.");
+        return;
+    }
+
+    // Check if verification has already been done
+    if (verificationDone) {
+        return;
+    }
+
+    const questionObj = questionnaireObj.questions[indexCourrantQuestion];
+    const correctAnswer = questionObj.bonneReponse;
+
+    reponseSelectionee.setAttribute("style", "color: red;");
+
+    if (reponseSelectionee.value === correctAnswer) {
         reponseSelectionee.setAttribute("style", "color: red;");
+        console.log("Bonne réponse");
+    } else {
+        reponseSelectionee.classList.add("pMauvaiseReponse");
+        console.log("Mauvaise réponse");
+    }
 
-        if (reponseSelectionee.value === correctAnswer) {
-            reponseSelectionee.setAttribute("style", "color: red;");
-            console.log("Bonne réponse");
-        } else {
-            reponseSelectionee.classList.add("pMauvaiseReponse");
-            console.log("Mauvaise réponse");
-        }
+    // Set verificationDone to true
+    verificationDone = true;
 
-        disabledRadio();
+    disabledRadio();
 
-        boutonVerifier.value = "Question Suivante !";
-        boutonVerifier.removeEventListener("click", afficherBoutonVerifier);
-        boutonVerifier.addEventListener("click", function () {
-            boutonVerifier.value = "Verifier le resultat";
-            boutonVerifier.classList.add('hidden');
-            boutonAbandon.classList.remove('hidden');
-            construireInterfaceQuestion(questionnaireObj);
-        });
+    const boutonVerifier = document.getElementById("boutonVerifier");
+    boutonVerifier.value = "Question Suivante !";
+    boutonVerifier.removeEventListener("click", verifierReponse);
+    boutonVerifier.addEventListener("click", function () {
+        boutonVerifier.value = "Verifier le resultat";
+        boutonVerifier.classList.add('hidden');
+        boutonAbandon.classList.remove('hidden');
+        construireInterfaceQuestion(questionnaireObj);
     });
 }
 
@@ -131,9 +147,7 @@ function gererInterfaceFinal(questionnaireObj) {
 
     titre.textContent = "Voici votre résultat final: ";
     resultat.textContent = "Tu as eu un score de " + scoreFinal + " points, ce qui fait une note de: " + notePourcentage + " ." + msgEncouragement;
-    boutonRejouer.addEventListener("click", function () {
-        creerNouveauJeu();
-    });
+    boutonRejouer.addEventListener("click", creerNouveauJeu);
 }
 
 function construireInterfaceAbandon(questionnaireObj) {
@@ -152,9 +166,7 @@ function gererInterfaceAbandon(questionnaireObj) {
     titre.textContent = "Voici votre résultat, même si vous avez abandonné...";
     resultat.textContent = "Tu as eu un score de " + scoreFinal + " points, ce qui fait une note de: " + notePourcentage + " ." + msgSelonScore(scoreFinal);
 
-    boutonRejouer.addEventListener("click", function () {
-        creerNouveauJeu();
-    });
+    boutonRejouer.addEventListener("click", creerNouveauJeu);
 }
 
 function disabledRadio() {
