@@ -56,27 +56,28 @@ function verifierReponse(questionnaireObj) {
     if (!reponseSelectionee) {
         alert("Veuillez sélectionner une réponse ou abandonner le quiz.");
     }
-    if (verificationReponseFaite) {
-        console.log("verification de la réponse est déjà complétée.");
 
+    if (verificationReponseFaite) {
+        console.log("La vérification de la réponse est déjà complétée.");
     } else {
         const questionObj = questionnaireObj.questions[indexCourrantQuestion];
         const laBonneReponse = questionObj.bonneReponse;
 
+        // Find the associated label for the checked radio button
+        const labelForSelectedAnswer = document.querySelector(`label[for="${reponseSelectionee.id}"]`);
+
         if (reponseSelectionee.value === laBonneReponse) {
-            //TODO METTRE VERT
-            document.getElementById("pRep").style.color = "green";
+            // Correct answer, set label color to green
+            labelForSelectedAnswer.style.color = "green";
             console.log("Bonne réponse");
             questionnaireObj.nombreDePoints += questionObj.nbrePoints;
         } else {
-            //TODO METTRE ROUGE
-
-            document.getElementById("pRep").style.color = "red";
+            // Incorrect answer, set label color to red
+            labelForSelectedAnswer.style.color = "red";
             console.log("Mauvaise réponse");
         }
+
         questionnaireObj.nombreDePointsMax += questionObj.nbrePoints;
-
-
         verificationReponseFaite = true;
         radioDesactives();
 
@@ -94,6 +95,7 @@ function verifierReponse(questionnaireObj) {
     }
 }
 
+
 function gererBoutons(questionnaireObj) {
     afficherBoutonVerifier(questionnaireObj);
     const boutonAbandon = creerInput("button", "boutonAbandon", "", "Abandonner", "bouton");
@@ -108,13 +110,15 @@ function affichageQuestion(questionObj, questionnaireObj) {
     viderZoneDeDonnees();
     legend.textContent = "Questionnaire";
     fieldset.appendChild(legend);
-    fieldset.appendChild(creerBaliseX("h1", "p1", "Question " + (indexCourrantQuestion + 1) + " de 5 pour " + questionObj.nbrePoints + " points"));
+    fieldset.appendChild(creerBaliseX("h1", "p1", "Question " + (indexCourrantQuestion + 1) + " de 5 pour " + questionObj.nbrePoints + " point(s)"));
     fieldset.appendChild(creerBaliseX("p", "p2", questionObj.question));
 
     for (let i = 0; i < questionObj.reponses.length; i++) {
         let choixDeReponse = creerBaliseX("p", "choix");
         choixDeReponse.appendChild(affichageChoixReponses(questionObj.reponses[i], i + 1));
         fieldset.appendChild(choixDeReponse);
+
+        //C'est pas forcément ici, mais on pourrait faire que si on voit que y'a pas de question restante, qu'on change le bouton pour "voir les résultats" et que ça mène à la page des résultats.
     }
 }
 

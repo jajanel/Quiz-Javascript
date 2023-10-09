@@ -6,3 +6,20 @@
  3 - Faire la méthode qui calcule le score.
  4 - Créer une fonction qui va calculer le pourcentage du score. Il faut considérer le nombre de question qui on été répondues par l'utilisateur.
  5 - Ajouter la légende à chaque interface.
+
+
+ Ce qui nous reste à faire avant la remise :
+
+ 1 : Ajustement du css lors de la vérification des réponses.
+ 2 : Avoir un bouton voir les résultats après avoir répondu à toutes les questions.
+ 3 : Ajuster le texte de fin lorsque l'utilisateur abandonne le quiz, notament l'ajustement du NAN,
+ regarder aussi pour la valeur que l'on met apres le scores, (si le total des questions est de 5, on met 0 sur 5, ou peut importe on était rendue dans le quiz).
+
+
+ 4 : Regarder pour faire de l'optimisation, regarder les const et les let, voir si on peut les mettre dans des fonctions.
+ 5 : Enlever les console.log
+ 6 : Ajuster les questions jSon pour pas qu'on voit la bonne réponses --> s'assurer que toutes les questions soit ok.
+ 7 : Faire en sorte que le css de notre truc soit ressemblable à celui du prof.
+ cities de throttle lyrics : https://www.youtube.com/watch?v=9XaS93WMRQQ
+
+
