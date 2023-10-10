@@ -46,9 +46,8 @@ function verificationQuestionSuivante(questionnaireObj) {
     indexCourrantQuestion++;
     verificationReponseFaite = false;
     if (indexCourrantQuestion >= questionnaireObj.questions.length) {
-        construireInterfaceResultats(questionnaireObj);
-    } else if (indexCourrantQuestion == 5) {
         gererBoutonsFinal(questionnaireObj);
+        abandon = false;
     } else {
         const questionObj = questionnaireObj.questions[indexCourrantQuestion];
         affichageQuestion(questionObj, questionnaireObj);
@@ -62,10 +61,9 @@ function verificationQuestionSuivante(questionnaireObj) {
  * @param questionnaireObj - l'objet questionnaire
  */
 function gererBoutonsFinal(questionnaireObj){
-    const boutonAbandon = document.getElementById("boutonAbandon");
-    boutonAbandon.style.display = "none";
-    const boutonVerifier = document.getElementById("boutonVerifier");
-    boutonVerifier.value = "Voir les résultats";
+    boutonAbandon.remove();
+    const boutonVerifier = creerInput("button", "boutonVerifier", "", "Voir les résultats", "bouton");
+    fieldset.appendChild(boutonVerifier);
     boutonVerifier.addEventListener("click", function () {
         construireInterfaceResultats(questionnaireObj);
     });
