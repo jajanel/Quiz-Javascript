@@ -29,20 +29,38 @@ function creerNouveauJeu() {
     const questionnaireObj = new QuestionnaireQuiz();
     construireInterfaceQuestion(questionnaireObj);
 }
-//TODO Faire qu'à la dernière question le bouton "suivant" devient "terminer" et qu'il mène à la page des résultats.
 function construireInterfaceQuestion(questionnaireObj) {
     indexCourrantQuestion++;
     verificationReponseFaite = false;
     if (indexCourrantQuestion >= questionnaireObj.questions.length) {
         construireInterfaceResultats(questionnaireObj);
-    }
-    //CA SE PASSE ICI
-    else {
+    } else if (indexCourrantQuestion == 5) {
+        gererBoutonsFinal(questionnaireObj);
+    } else {
         const questionObj = questionnaireObj.questions[indexCourrantQuestion];
         affichageQuestion(questionObj, questionnaireObj);
         gererBoutons(questionnaireObj);
     }
 }
+
+//TODO Faire qu'à la dernière question le bouton "suivant" devient "terminer" et qu'il mène à la page des résultats.
+/**
+ * Fonction qui fait que le bouton Abandonner disparait (changer le style de l'élément bouton pour display: none.) et le bouton Question Suivante se transofrme en "Voir les résultats" (changer la "value")
+ * @param questionnaireObj - l'objet questionnaire
+ */
+function gererBoutonsFinal(questionnaireObj){
+    console.log("Dernière question !")
+    const boutonAbandon = document.getElementById("boutonAbandon");
+    boutonAbandon.style.display = "none";
+    const boutonVerifier = document.getElementById("boutonVerifier");
+    boutonVerifier.value = "Voir les résultats";
+    boutonVerifier.addEventListener("click", function () {
+        construireInterfaceResultats(questionnaireObj);
+    });
+}
+
+
+
 function afficherBoutonVerifier(questionnaireObj) {
     const boutonVerifier = creerInput("button", "boutonVerifier", "", "Vérifier le resultat", "bouton");
     fieldset.appendChild(boutonVerifier);
@@ -51,11 +69,6 @@ function afficherBoutonVerifier(questionnaireObj) {
         verifierReponse(questionnaireObj);
     });
 }
-
-function gererBoutonsFinal(questionnaireObj){
-
-}
-
 
 
 function afficherBoutonVerifier(questionnaireObj) {
