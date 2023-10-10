@@ -119,6 +119,7 @@ function questionSuivanteVerif(reponseSelectionee, questionnaireObj) {
             questionnaireObj.nombreDePointsMax += questionObj.nbrePoints;
             verificationReponseFaite = true;
             radioDesactives();
+            verificationQuestionSuivante(questionnaireObj);
 
             const boutonVerifier = document.getElementById("boutonVerifier");
             boutonVerifier.value = "Question Suivante !";
@@ -129,7 +130,6 @@ function questionSuivanteVerif(reponseSelectionee, questionnaireObj) {
                 boutonVerifier.classList.add('hidden');
                 boutonAbandon.classList.remove('hidden');
 
-                verificationQuestionSuivante(questionnaireObj);
             });
         }
     }
