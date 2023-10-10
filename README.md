@@ -1,3 +1,6 @@
-# Quiz-Javascript
+# Jeu-Questionnaire Javascript 
+## Raphaël Simard et Janelle Bédard  
+Pour le cours de Programmation Web - TP1 - A23  
 
-Petit Quiz de Javascript pour le cours de Programmation Web.
+
+2023-10-10
