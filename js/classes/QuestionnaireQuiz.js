@@ -97,8 +97,8 @@ class QuestionnaireQuiz {
                 styleMauvauseReponse(valeurChecked);
 //L'id de ma bonne réponse, c'Est le même que la string qu'il contient. - Fabien, 2023
             }
-            return valeurAeteCochee;
         }
+        return valeurAeteCochee;
     }
 
 }

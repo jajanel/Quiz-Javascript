@@ -1,5 +1,4 @@
 "use strict";
-
 const zoneDeDonnees = document.getElementById("zoneDeDonnees");
 const legend = document.createElement("legend");
 const fieldset = creerFieldset("fieldset");
@@ -8,14 +7,11 @@ zoneDeDonnees.appendChild(fieldset);
 let indexCourrantQuestion = -1;
 let verificationReponseFaite = false;
 let abandon = false;
-
 function imageBackground(){
     let body = document.querySelector("body");
     body.appendChild(creerBaliseX("img", "background", "", "background"));
     //S'en occuper plus tard, pas la priorité...
 }
-
-
 function construireInterfaceIntro() {
     viderZoneDeDonnees();
     legend.textContent = "Intro";
@@ -60,33 +56,38 @@ function afficherBoutonVerifier(questionnaireObj) {
 function verifierReponse(questionnaireObj) {
     let listeReponse = document.querySelectorAll("input");
     let reponseSelectionee = null;
-    for (let rep of listeReponse){
-        if (rep.checked){
+    for (let rep of listeReponse) {
+        if (rep.checked) {
             reponseSelectionee = rep.value;
         }
     }
+
     if (verificationReponseFaite) {
-    console.log("Vous avez déjà vérifié la réponse !")
+        console.log("Vous avez déjà vérifié la réponse !");
     } else {
-        let questionObj = questionnaireObj.questions[indexCourrantQuestion];
-        const laBonneReponse = questionObj.bonneReponse.value;
-        questionnaireObj.verifierBonneReponse(questionObj, reponseSelectionee);
+        if (reponseSelectionee === null) {
+            alert("Veuillez choisir une réponse ou abandonner !");
+        } else {
+            let questionObj = questionnaireObj.questions[indexCourrantQuestion];
+            const laBonneReponse = questionObj.bonneReponse.value;
+            questionnaireObj.verifierBonneReponse(questionObj, reponseSelectionee);
 
-        questionnaireObj.nombreDePointsMax += questionObj.nbrePoints;
-        verificationReponseFaite = true;
-        radioDesactives();
+            questionnaireObj.nombreDePointsMax += questionObj.nbrePoints;
+            verificationReponseFaite = true;
+            radioDesactives();
 
-        const boutonVerifier = document.getElementById("boutonVerifier");
-        boutonVerifier.value = "Question Suivante !";
-        boutonVerifier.removeEventListener("click", verifierReponse);
+            const boutonVerifier = document.getElementById("boutonVerifier");
+            boutonVerifier.value = "Question Suivante !";
+            boutonVerifier.removeEventListener("click", verifierReponse);
 
-        boutonVerifier.addEventListener("click", function () {
-            boutonVerifier.value = "Vérifier la réponse";
-            boutonVerifier.classList.add('hidden');
-            boutonAbandon.classList.remove('hidden');
+            boutonVerifier.addEventListener("click", function () {
+                boutonVerifier.value = "Vérifier la réponse";
+                boutonVerifier.classList.add('hidden');
+                boutonAbandon.classList.remove('hidden');
 
-            construireInterfaceQuestion(questionnaireObj);
-        });
+                construireInterfaceQuestion(questionnaireObj);
+            });
+        }
     }
 }
 function gererBoutons(questionnaireObj) {
@@ -100,18 +101,25 @@ function gererBoutons(questionnaireObj) {
 }
 function affichageQuestion(questionObj, questionnaireObj) {
     viderZoneDeDonnees();
-    legend.textContent = "Questionnaire";
-    fieldset.appendChild(legend);
-    fieldset.appendChild(creerBaliseX("h1", "p1", "Question " + (indexCourrantQuestion + 1) + " de 5 pour " + questionObj.nbrePoints + " point(s)"));
-    fieldset.appendChild(creerBaliseX("p", "p2", questionObj.question));
-
-    for (let i = 0; i < questionObj.reponses.length; i++) {
-        let choixDeReponse = creerBaliseX("p", "choix");
-        choixDeReponse.appendChild(affichageChoixReponses(questionObj.reponses[i], i + 1));
-        fieldset.appendChild(choixDeReponse);
-
-        //C'est pas forcément ici, mais on pourrait faire que si on voit que y'a pas de question restante, qu'on change le bouton pour "voir les résultats" et que ça mène à la page des résultats.
+    let pluriel = "s";
+    if (questionObj.nbrePoints === 1){
+        pluriel = "";
     }
+        legend.textContent = "Questionnaire";
+        fieldset.appendChild(legend);
+
+
+        fieldset.appendChild(creerBaliseX("h1", "p1", "Question " + (indexCourrantQuestion + 1) + " de 5 pour " + questionObj.nbrePoints + " point" + pluriel + " :"));
+        fieldset.appendChild(creerBaliseX("p", "p2", questionObj.question));
+
+        for (let i = 0; i < questionObj.reponses.length; i++) {
+            let choixDeReponse = creerBaliseX("p", "choix");
+            choixDeReponse.appendChild(affichageChoixReponses(questionObj.reponses[i], i + 1));
+            fieldset.appendChild(choixDeReponse);
+
+            //C'est pas forcément ici, mais on pourrait faire que si on voit que y'a pas de question restante, qu'on change le bouton pour "voir les résultats" et que ça mène à la page des résultats.
+        }
+
 }
 function affichageChoixReponses(reponse, index) {
     let ligneReponse = document.createElement("p");

@@ -8,7 +8,6 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
-
 /**
  * Fonction qui prend le fichier JSON et qui tranforme chacune des question JSON en un objet Question.
  * @returns {*[]} Le tableau de 5 objets questions aléatoires.
@@ -24,7 +23,6 @@ function JSONaObjectJS() {
     return tableauDesQuestions.slice(0, 5);
 
 }
-
 /**
  * Fonction qui retourne un message selon le score
  * @param pourcentage - le pourcentage de la note
@@ -32,8 +30,8 @@ function JSONaObjectJS() {
  */
 function msgSelonScore(pourcentage){
     let laStringDeTexte = "";
-    if (pourcentage > 0 && pourcentage < 30){
-        laStringDeTexte = "Vous êtes vraiment nul ! Il va falloir réviser encore...";
+    if (pourcentage < 30){
+        laStringDeTexte = " Vous êtes vraiment nul ! Il va falloir réviser encore...";
     } else if (pourcentage < 60){
         laStringDeTexte = " Vous auriez quand même pu faire mieux... Aller hop, on révise !";
     } else if (pourcentage < 70){
@@ -49,18 +47,33 @@ function msgSelonScore(pourcentage){
     }
     return laStringDeTexte;
 }
-
-
+/**
+ * Fonction qui ajoute un style de bonne réponse à la réponse choisie si c'est la bonne.
+ * @param valeurChecked Valeur cochée
+ * @param question Question
+ */
 function styleBonneReponse(valeurChecked, question) {
     let id = document.getElementById(valeurChecked);
     id.style.color = "green";
     id.innerText += " ✔️";
     this._nombreDePoints += question.nbrePoints;
 }
-
+/**
+ * Fonction qui ajoute un style de mauvaise réponse à la réponse choisie si c'est la mauvaise.
+ * @param valeurChecked Valeur cochée
+ */
 function styleMauvauseReponse(valeurChecked) {
     let id = document.getElementById(valeurChecked);
     id.style.color = "red";
     id.innerText += " ❌";
     id.style.textDecoration = "line-through";
+}
+/**
+ * Fonction qui ajoute un style de bonne réponse qui n'a pas été cochée
+ * @param question la question
+ */
+function styleBonneReponseNonCochee(question) {
+    let id = document.getElementById(question.bonneReponse);
+    id.style.color = "blue";
+    id.innerText += " ✔️";
 }
