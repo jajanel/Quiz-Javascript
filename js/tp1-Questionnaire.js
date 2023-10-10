@@ -24,6 +24,7 @@ function construireInterfaceIntro() {
     fieldset.appendChild(boutonIntro);
     boutonIntro.addEventListener("click", creerNouveauJeu);
 }
+
 function viderZoneDeDonnees() {
     fieldset.innerHTML = "";
 }
@@ -45,31 +46,11 @@ function creerNouveauJeu() {
 function verificationQuestionSuivante(questionnaireObj) {
     indexCourrantQuestion++;
     verificationReponseFaite = false;
-    if (indexCourrantQuestion >= questionnaireObj.questions.length) {
-        gererBoutonsFinal(questionnaireObj);
-        abandon = false;
-    } else {
-        const questionObj = questionnaireObj.questions[indexCourrantQuestion];
-        affichageQuestion(questionObj, questionnaireObj);
-        gererBoutons(questionnaireObj);
-    }
+    abandon = false;
+    const questionObj = questionnaireObj.questions[indexCourrantQuestion];
+    affichageQuestion(questionObj, questionnaireObj);
+    gererBoutons(questionnaireObj);
 }
-
-//TODO Faire qu'à la dernière question le bouton "suivant" devient "terminer" et qu'il mène à la page des résultats.
-/**
- * Fonction qui fait que le bouton Abandonner disparait (changer le style de l'élément bouton pour display: none.) et le bouton Question Suivante se transofrme en "Voir les résultats" (changer la "value")
- * @param questionnaireObj - l'objet questionnaire
- */
-function gererBoutonsFinal(questionnaireObj){
-    boutonAbandon.remove();
-    boutonVerifier.remove();
-    const boutonFinal = creerInput("button", "", "", "Voir les résultats", "bouton");
-    fieldset.appendChild(boutonFinal);
-    boutonFinal.addEventListener("click", function () {
-        construireInterfaceResultats(questionnaireObj);
-    });
-}
-
 
 
 /**
@@ -123,7 +104,6 @@ function questionSuivanteVerif(reponseSelectionee, questionnaireObj) {
 
             const boutonVerifier = document.getElementById("boutonVerifier");
 
-            // Check if it's the last question
             if (indexCourrantQuestion === questionnaireObj.questions.length - 1) {
                 boutonVerifier.value = "Voir les résultats";
                 boutonVerifier.addEventListener("click", function () {
@@ -165,18 +145,18 @@ function affichageQuestion(questionObj, questionnaireObj) {
     viderZoneDeDonnees();
     let pluriel = pointsPluriel(questionObj);
     legend.textContent = "Questionnaire";
-        fieldset.appendChild(legend);
+    fieldset.appendChild(legend);
 
 
-        fieldset.appendChild(creerBaliseX("h1", "p1", "Question " + (indexCourrantQuestion + 1) + " de 5 pour " + questionObj.nbrePoints + " point" + pluriel + " :"));
-        fieldset.appendChild(creerBaliseX("p", "p2", questionObj.question));
+    fieldset.appendChild(creerBaliseX("h1", "p1", "Question " + (indexCourrantQuestion + 1) + " de 5 pour " + questionObj.nbrePoints + " point" + pluriel + " :"));
+    fieldset.appendChild(creerBaliseX("p", "p2", questionObj.question));
 
-        for (let i = 0; i < questionObj.reponses.length; i++) {
-            let choixDeReponse = creerBaliseX("p", "choix");
-            choixDeReponse.appendChild(affichageChoixReponses(questionObj.reponses[i], i + 1));
-            fieldset.appendChild(choixDeReponse);
+    for (let i = 0; i < questionObj.reponses.length; i++) {
+        let choixDeReponse = creerBaliseX("p", "choix");
+        choixDeReponse.appendChild(affichageChoixReponses(questionObj.reponses[i], i + 1));
+        fieldset.appendChild(choixDeReponse);
 
-        }
+    }
 
 }
 
@@ -236,8 +216,10 @@ function radioDesactives() {
         radios[i].disabled = true;
     }
 }
+
 function main() {
     // Zone de données est l'id du div dans le HTML
     construireInterfaceIntro(zoneDeDonnees);
 }
+
 main();
