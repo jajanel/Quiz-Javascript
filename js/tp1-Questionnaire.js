@@ -7,11 +7,7 @@ zoneDeDonnees.appendChild(fieldset);
 let indexCourrantQuestion = -1;
 let verificationReponseFaite = false;
 let abandon = false;
-function imageBackground(){
-    let body = document.querySelector("body");
-    body.appendChild(creerBaliseX("img", "background", "", "background"));
-    //S'en occuper plus tard, pas la priorité...
-}
+
 function construireInterfaceIntro() {
     viderZoneDeDonnees();
     legend.textContent = "Intro";
@@ -39,6 +35,17 @@ function construireInterfaceQuestion(questionnaireObj) {
     verificationReponseFaite = false;
     if (indexCourrantQuestion >= questionnaireObj.questions.length) {
         construireInterfaceResultats(questionnaireObj);
+    } else if (indexCourrantQuestion == 4){
+          const questionObj = questionnaireObj.questions[indexCourrantQuestion];
+          affichageQuestion(questionObj, questionnaireObj);
+          gererBoutons(questionnaireObj);
+          const boutonVerifier = document.getElementById("boutonVerifier");
+          boutonVerifier.value = "Terminer le quiz !";
+          boutonVerifier.addEventListener("click", function () {
+                construireInterfaceResultats(questionnaireObj);
+          });
+
+
     } else {
         const questionObj = questionnaireObj.questions[indexCourrantQuestion];
         affichageQuestion(questionObj, questionnaireObj);
