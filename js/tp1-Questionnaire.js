@@ -27,9 +27,9 @@ function creerNouveauJeu() {
     indexCourrantQuestion = -1;
     viderZoneDeDonnees();
     const questionnaireObj = new QuestionnaireQuiz();
-    construireInterfaceQuestion(questionnaireObj);
+    verificationQuestionSuivante(questionnaireObj);
 }
-function construireInterfaceQuestion(questionnaireObj) {
+function verificationQuestionSuivante(questionnaireObj) {
     indexCourrantQuestion++;
     verificationReponseFaite = false;
     if (indexCourrantQuestion >= questionnaireObj.questions.length) {
@@ -49,7 +49,6 @@ function construireInterfaceQuestion(questionnaireObj) {
  * @param questionnaireObj - l'objet questionnaire
  */
 function gererBoutonsFinal(questionnaireObj){
-    console.log("Dernière question !")
     const boutonAbandon = document.getElementById("boutonAbandon");
     boutonAbandon.style.display = "none";
     const boutonVerifier = document.getElementById("boutonVerifier");
@@ -89,7 +88,6 @@ function verifierReponse(questionnaireObj) {
     }
 
     if (verificationReponseFaite) {
-        console.log("Vous avez déjà vérifié la réponse !");
     } else {
         if (reponseSelectionee === null) {
             alert("Veuillez choisir une réponse ou abandonner !");
@@ -111,7 +109,7 @@ function verifierReponse(questionnaireObj) {
                 boutonVerifier.classList.add('hidden');
                 boutonAbandon.classList.remove('hidden');
 
-                construireInterfaceQuestion(questionnaireObj);
+                verificationQuestionSuivante(questionnaireObj);
             });
         }
     }
@@ -123,17 +121,16 @@ function gererBoutons(questionnaireObj) {
     fieldset.appendChild(boutonAbandon);
     boutonAbandon.addEventListener("click", function () {
         abandon = true;
-        console.log("Vous avez abandonné !");
         construireInterfaceResultats(questionnaireObj);
     });
 }
+
+
+
 function affichageQuestion(questionObj, questionnaireObj) {
     viderZoneDeDonnees();
-    let pluriel = "s";
-    if (questionObj.nbrePoints === 1){
-        pluriel = "";
-    }
-        legend.textContent = "Questionnaire";
+    let pluriel = pointsPluriel(questionObj);
+    legend.textContent = "Questionnaire";
         fieldset.appendChild(legend);
 
 
@@ -174,7 +171,7 @@ function gererInterfaceResultats(questionnaireObj) {
         resultat.textContent = "Vous avez quand même " + scoreFinal + "/ " + questionnaireObj.nombreDePointsMax + " points d'accumulés, et votre note est de: " + notePourcentage + "%. C'est dommage de ne pas avoir continué :(";
     } else if (abandon === false) {
         titre.textContent = "Voici votre résultat final: ";
-        resultat.textContent = "Vous avez " + scoreFinal + "/" + questionnaireObj.nombreDePointsMax + " points, ce qui fait une note de: " + notePourcentage + "% ." + msgSelonScore(notePourcentage);
+        resultat.textContent = "Vous avez " + scoreFinal + "/" + questionnaireObj.nombreDePointsMax + " points, ce qui fait une note de: " + notePourcentage + "%." + msgSelonScore(notePourcentage);
 
     }
     boutonRejouer.addEventListener("click", creerNouveauJeu);

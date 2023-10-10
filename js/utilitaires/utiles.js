@@ -54,7 +54,7 @@ function msgSelonScore(pourcentage){
  */
 function styleBonneReponse(valeurChecked, question) {
     let id = document.getElementById(valeurChecked);
-    id.style.color = "green";
+    id.style.color = "blue";
     id.innerText += " ✔️";
     this._nombreDePoints += question.nbrePoints;
 }
@@ -68,12 +68,17 @@ function styleMauvauseReponse(valeurChecked) {
     id.innerText += " ❌";
     id.style.textDecoration = "line-through";
 }
+
+
 /**
- * Fonction qui ajoute un style de bonne réponse qui n'a pas été cochée
- * @param question la question
+ * Méthode qui ajoute un "S" à la fin du mot points si la question peut donner plus qu'un point.
+ * @param questionObj l'object question
+ * @returns {string} le "S" ou rien
  */
-function styleBonneReponseNonCochee(question) {
-    let id = document.getElementById(question.bonneReponse);
-    id.style.color = "blue";
-    id.innerText += " ✔️";
+function pointsPluriel(questionObj) {
+    let pluriel = "s";
+    if (questionObj.nbrePoints === 1) {
+        pluriel = "";
+    }
+    return pluriel;
 }

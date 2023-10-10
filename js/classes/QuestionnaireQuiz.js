@@ -92,10 +92,7 @@ class QuestionnaireQuiz {
             alert("Veuillez choisir une réponse ou abandonner !");
 
         } else {
-            console.log(valeurChecked);
-            console.log(question.bonneReponse);
             if (question.valideReponse(valeurChecked)) {
-                console.log("Bonne réponse");
                 styleBonneReponse.call(this, valeurChecked, question);
 
 
