@@ -1,7 +1,6 @@
-//Ici on met toutes les fonctions qui ne servent pas à faire afficher du texte en HTML.
 /**
- * Fonction qui prend un array et shuffle les question selon algorithm Fisher-Yates
- * @param array
+ * Méthode qui prend en paramètre un array et qui shuffle les question selon l'algorithme Fisher-Yates.
+ * @param array Un array passé en paramètre
  */
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -10,18 +9,9 @@ function shuffleArray(array) {
     }
 }
 
-/*function calculerPoucentage(scoreFinal, nbrQuestionRepondue){
-    //TODO VARIABLE DU NOMBRE DE POINTS ACCUMULÉ ET VARIABLE DU NOMBRE DE QUESTIONS RÉPONDUES (YA CLAIREMENT QUELQUE CHOSE À FAIRE AVEC INDEX E QUESTION -1 OU JSP ON VERRA)
-    // DIVISÉ PAR NOMBRE DE QUESTION JSP COMMENT FAIRE UN POURCENTAGE.
-    return (scoreFinal / nbrQuestionRepondue) * 100;
-}*/
-
-
-
-
 /**
- * Fonction qui prend un array et shuffle les question selon algorithm Fisher-Yates
- * @returns {*[]}
+ * Fonction qui prend le fichier JSON et qui tranforme chacune des question JSON en un objet Question.
+ * @returns {*[]} Le tableau de 5 objets questions aléatoires.
  * @constructor
  */
 function JSONaObjectJS() {
@@ -35,24 +25,42 @@ function JSONaObjectJS() {
 
 }
 
-
+/**
+ * Fonction qui retourne un message selon le score
+ * @param pourcentage - le pourcentage de la note
+ * @returns {string} - le message selon le score
+ */
 function msgSelonScore(pourcentage){
     let laStringDeTexte = "";
     if (pourcentage > 0 && pourcentage < 30){
         laStringDeTexte = "Vous êtes vraiment nul ! Il va falloir réviser encore...";
     } else if (pourcentage < 60){
-        laStringDeTexte = "Vous auriez quand même pu faire mieux... Aller hop, on révise !";
+        laStringDeTexte = " Vous auriez quand même pu faire mieux... Aller hop, on révise !";
     } else if (pourcentage < 70){
-        laStringDeTexte = "Vous êtes dans la moyenne! Vous pouvez certainement vous améliorer!";
+        laStringDeTexte = " Vous êtes dans la moyenne! Vous pouvez certainement vous améliorer!";
     } else if ( pourcentage < 85){
-        laStringDeTexte = "Vous êtes bon, mais vous pouvez faire encore mieux !";
+        laStringDeTexte = " Vous êtes bon, mais vous pouvez faire encore mieux !";
     } else if (pourcentage < 95){
-        laStringDeTexte = "Vous êtes très bon! Bravo !";
+        laStringDeTexte = " Vous êtes très bon! Bravo !";
     } else if (pourcentage < 100){
-        laStringDeTexte = "Vous êtes excellent ! C'est presque parfait!";
-    } else if (pourcentage === 100){
-        laStringDeTexte = "Vous êtes parfait ! C'est sans fautes !";
+        laStringDeTexte = " Vous êtes excellent ! C'est presque parfait!";
+    } else if (pourcentage == 100){
+        laStringDeTexte = " Vous êtes parfait ! C'est sans fautes !";
     }
     return laStringDeTexte;
 }
 
+
+function styleBonneReponse(valeurChecked, question) {
+    let id = document.getElementById(valeurChecked);
+    id.style.color = "green";
+    id.innerText += " ✔️";
+    this._nombreDePoints += question.nbrePoints;
+}
+
+function styleMauvauseReponse(valeurChecked) {
+    let id = document.getElementById(valeurChecked);
+    id.style.color = "red";
+    id.innerText += " ❌";
+    id.style.textDecoration = "line-through";
+}

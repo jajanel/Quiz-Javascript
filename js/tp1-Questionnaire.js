@@ -66,7 +66,7 @@ function verifierReponse(questionnaireObj) {
         }
     }
     if (verificationReponseFaite) {
-
+    console.log("Vous avez déjà vérifié la réponse !")
     } else {
         let questionObj = questionnaireObj.questions[indexCourrantQuestion];
         const laBonneReponse = questionObj.bonneReponse.value;

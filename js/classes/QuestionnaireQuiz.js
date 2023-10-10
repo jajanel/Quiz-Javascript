@@ -1,3 +1,4 @@
+
 class QuestionnaireQuiz {
 
     _indexCourrantQuestion = 0;
@@ -81,25 +82,19 @@ class QuestionnaireQuiz {
         let valeurAeteCochee = false;
         if (valeurChecked == null) {
             alert("Veuillez choisir une réponse ou abandonner !");
+
         } else {
             console.log(valeurChecked);
             console.log(question.bonneReponse);
             if (question.valideReponse(valeurChecked)) {
                 console.log("Bonne réponse");
-                let id = document.getElementById(valeurChecked);
-                id.style.color = "green";
-                id.innerText += " ✔️";
-                this._nombreDePoints += question.nbrePoints;
-
+                styleBonneReponse.call(this, valeurChecked, question);
 
 
                 valeurAeteCochee = true;
 
             } else {
-                let id = document.getElementById(valeurChecked);
-                id.style.color = "red";
-                id.innerText += " ❌";
-                id.style.textDecoration = "line-through";
+                styleMauvauseReponse(valeurChecked);
 //L'id de ma bonne réponse, c'Est le même que la string qu'il contient. - Fabien, 2023
             }
             return valeurAeteCochee;
