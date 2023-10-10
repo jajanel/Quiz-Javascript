@@ -126,6 +126,9 @@ function questionSuivanteVerif(reponseSelectionee, questionnaireObj) {
             // Check if it's the last question
             if (indexCourrantQuestion === questionnaireObj.questions.length - 1) {
                 boutonVerifier.value = "Voir les résultats";
+                boutonVerifier.addEventListener("click", function () {
+                    construireInterfaceResultats(questionnaireObj);
+                });
                 boutonAbandon.remove();
             } else {
                 boutonVerifier.value = "Question Suivante !";
