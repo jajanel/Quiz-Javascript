@@ -35,23 +35,29 @@ function construireInterfaceQuestion(questionnaireObj) {
     verificationReponseFaite = false;
     if (indexCourrantQuestion >= questionnaireObj.questions.length) {
         construireInterfaceResultats(questionnaireObj);
-    } else if (indexCourrantQuestion == 4){
-          const questionObj = questionnaireObj.questions[indexCourrantQuestion];
-          affichageQuestion(questionObj, questionnaireObj);
-          gererBoutons(questionnaireObj);
-          const boutonVerifier = document.getElementById("boutonVerifier");
-          boutonVerifier.value = "Terminer le quiz !";
-          boutonVerifier.addEventListener("click", function () {
-                construireInterfaceResultats(questionnaireObj);
-          });
-
-
-    } else {
+    }
+    //CA SE PASSE ICI
+    else {
         const questionObj = questionnaireObj.questions[indexCourrantQuestion];
         affichageQuestion(questionObj, questionnaireObj);
         gererBoutons(questionnaireObj);
     }
 }
+function afficherBoutonVerifier(questionnaireObj) {
+    const boutonVerifier = creerInput("button", "boutonVerifier", "", "Vérifier le resultat", "bouton");
+    fieldset.appendChild(boutonVerifier);
+
+    boutonVerifier.addEventListener("click", function () {
+        verifierReponse(questionnaireObj);
+    });
+}
+
+function gererBoutonsFinal(questionnaireObj){
+
+}
+
+
+
 function afficherBoutonVerifier(questionnaireObj) {
     const boutonVerifier = creerInput("button", "boutonVerifier", "", "Vérifier le resultat", "bouton");
     fieldset.appendChild(boutonVerifier);
@@ -99,10 +105,12 @@ function verifierReponse(questionnaireObj) {
 }
 function gererBoutons(questionnaireObj) {
     afficherBoutonVerifier(questionnaireObj);
+
     const boutonAbandon = creerInput("button", "boutonAbandon", "", "Abandonner", "bouton");
     fieldset.appendChild(boutonAbandon);
     boutonAbandon.addEventListener("click", function () {
         abandon = true;
+        console.log("Vous avez abandonné !");
         construireInterfaceResultats(questionnaireObj);
     });
 }
@@ -150,11 +158,12 @@ function gererInterfaceResultats(questionnaireObj) {
     let notePourcentage = ((scoreFinal / questionnaireObj.nombreDePointsMax) * 100).toFixed(2);
     if (abandon === true) {
         titre.textContent = "Voici votre résultat, même si vous avez abandonné...";
+        resultat.textContent = "Vous avez quand même " + scoreFinal + "/ " + questionnaireObj.nombreDePointsMax + " points d'accumulés, et votre note est de: " + notePourcentage + "%. C'est dommage de ne pas avoir continué :(";
     } else if (abandon === false) {
         titre.textContent = "Voici votre résultat final: ";
-    }
+        resultat.textContent = "Vous avez " + scoreFinal + "/" + questionnaireObj.nombreDePointsMax + " points, ce qui fait une note de: " + notePourcentage + "% ." + msgSelonScore(notePourcentage);
 
-    resultat.textContent = "Tu as eu un score de " + scoreFinal + "/ " + questionnaireObj.nombreDePointsMax + " points, ce qui fait une note de: " + notePourcentage + "% ." + msgSelonScore(notePourcentage);
+    }
     boutonRejouer.addEventListener("click", creerNouveauJeu);
 }
 function radioDesactives() {

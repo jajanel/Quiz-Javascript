@@ -23,3 +23,13 @@
  cities de throttle lyrics : https://www.youtube.com/watch?v=9XaS93WMRQQ
 
 
+
+✨POUR LE BOUTON "VOIR LES RÉSULTATS"✨
+
+À la 4eme question (length-1), l'user clique sur sa réponse, puis sur vérifier réponse, et dès qu'il clique sur vérifier réponse:
+
+1. le bouton Abandonner disparait (changer le style de l'élément bouton pour display: none.)
+
+2. Le bouton Question Suivante se transofrme en "Voir les résultats" (changer la "value")
+OU
+Faire nouveau bouton qui s'occupe nécéssairement d'amener à l'interface final (abandon === false)
