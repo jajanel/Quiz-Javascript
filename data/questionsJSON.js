@@ -221,9 +221,3 @@ let tabAssQuestions = [
     }
 
 ];
-
-
-
-
-
-

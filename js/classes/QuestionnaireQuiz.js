@@ -89,6 +89,7 @@ class QuestionnaireQuiz {
                 let id = document.getElementById(valeurChecked);
                 id.style.color = "green";
                 id.innerText += " ✔️";
+                this._nombreDePoints += question.nbrePoints;
 
 
 
