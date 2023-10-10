@@ -62,9 +62,10 @@ function verificationQuestionSuivante(questionnaireObj) {
  */
 function gererBoutonsFinal(questionnaireObj){
     boutonAbandon.remove();
-    const boutonVerifier = creerInput("button", "boutonVerifier", "", "Voir les résultats", "bouton");
-    fieldset.appendChild(boutonVerifier);
-    boutonVerifier.addEventListener("click", function () {
+    boutonVerifier.remove();
+    const boutonFinal = creerInput("button", "", "", "Voir les résultats", "bouton");
+    fieldset.appendChild(boutonFinal);
+    boutonFinal.addEventListener("click", function () {
         construireInterfaceResultats(questionnaireObj);
     });
 }
@@ -78,7 +79,6 @@ function gererBoutonsFinal(questionnaireObj){
 function afficherBoutonVerifier(questionnaireObj) {
     const boutonVerifier = creerInput("button", "boutonVerifier", "", "Vérifier le resultat", "bouton");
     fieldset.appendChild(boutonVerifier);
-
     boutonVerifier.addEventListener("click", function () {
         verifierSiQuestionSelectionnee(questionnaireObj);
     });
@@ -108,6 +108,7 @@ function verifierSiQuestionSelectionnee(questionnaireObj) {
  */
 function questionSuivanteVerif(reponseSelectionee, questionnaireObj) {
     if (verificationReponseFaite) {
+
     } else {
         if (reponseSelectionee === null) {
             alert("Veuillez choisir une réponse ou abandonner !");
@@ -119,18 +120,20 @@ function questionSuivanteVerif(reponseSelectionee, questionnaireObj) {
             questionnaireObj.nombreDePointsMax += questionObj.nbrePoints;
             verificationReponseFaite = true;
             radioDesactives();
-            verificationQuestionSuivante(questionnaireObj);
 
             const boutonVerifier = document.getElementById("boutonVerifier");
-            boutonVerifier.value = "Question Suivante !";
-            boutonVerifier.removeEventListener("click", verifierSiQuestionSelectionnee);
 
-            boutonVerifier.addEventListener("click", function () {
-                boutonVerifier.value = "Vérifier la réponse";
-                boutonVerifier.classList.add('hidden');
-                boutonAbandon.classList.remove('hidden');
-
-            });
+            // Check if it's the last question
+            if (indexCourrantQuestion === questionnaireObj.questions.length - 1) {
+                boutonVerifier.value = "Voir les résultats";
+                boutonAbandon.remove();
+            } else {
+                boutonVerifier.value = "Question Suivante !";
+                boutonVerifier.removeEventListener("click", verifierSiQuestionSelectionnee);
+                boutonVerifier.addEventListener("click", function () {
+                    verificationQuestionSuivante(questionnaireObj);
+                });
+            }
         }
     }
 }
