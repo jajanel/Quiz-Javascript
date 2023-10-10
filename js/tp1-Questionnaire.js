@@ -8,6 +8,10 @@ let indexCourrantQuestion = -1;
 let verificationReponseFaite = false;
 let abandon = false;
 
+
+/**
+ * Construit et controle l'interface de l'introduction au quiz.
+ */
 function construireInterfaceIntro() {
     viderZoneDeDonnees();
     legend.textContent = "Intro";
@@ -23,12 +27,21 @@ function construireInterfaceIntro() {
 function viderZoneDeDonnees() {
     fieldset.innerHTML = "";
 }
+
+/**
+ * Méthode qui crée un nouveau jeu, remet à 0 lorsqu'on clique sur le bouton "Commencer le quiz !" ou "Rejouer !"
+ */
 function creerNouveauJeu() {
     indexCourrantQuestion = -1;
     viderZoneDeDonnees();
     const questionnaireObj = new QuestionnaireQuiz();
     verificationQuestionSuivante(questionnaireObj);
 }
+
+/**
+ * Méthode qui vérifie que faire en selon si l'utilisateur a répondu à toutes les questions ou non.
+ * @param questionnaireObj l'objet questionnaire
+ */
 function verificationQuestionSuivante(questionnaireObj) {
     indexCourrantQuestion++;
     verificationReponseFaite = false;
@@ -60,25 +73,24 @@ function gererBoutonsFinal(questionnaireObj){
 
 
 
+/**
+ * Méthode qui affiche le bouton "Vérifier la réponse" et qui verifie la réponse après le clic du bouton.
+ * @param questionnaireObj l'ojet questionnaire
+ */
 function afficherBoutonVerifier(questionnaireObj) {
     const boutonVerifier = creerInput("button", "boutonVerifier", "", "Vérifier le resultat", "bouton");
     fieldset.appendChild(boutonVerifier);
 
     boutonVerifier.addEventListener("click", function () {
-        verifierReponse(questionnaireObj);
+        verifierSiQuestionSelectionnee(questionnaireObj);
     });
 }
 
-
-function afficherBoutonVerifier(questionnaireObj) {
-    const boutonVerifier = creerInput("button", "boutonVerifier", "", "Vérifier le resultat", "bouton");
-    fieldset.appendChild(boutonVerifier);
-
-    boutonVerifier.addEventListener("click", function () {
-        verifierReponse(questionnaireObj);
-    });
-}
-function verifierReponse(questionnaireObj) {
+/**
+ * Méthode qui sort la valeur de la réponse sélectionnée.
+ * @param questionnaireObj l'objet questionnaire
+ */
+function verifierSiQuestionSelectionnee(questionnaireObj) {
     let listeReponse = document.querySelectorAll("input");
     let reponseSelectionee = null;
     for (let rep of listeReponse) {
@@ -86,7 +98,17 @@ function verifierReponse(questionnaireObj) {
             reponseSelectionee = rep.value;
         }
     }
+    questionSuivanteVerif(reponseSelectionee, questionnaireObj);
+}
 
+
+/**
+ * Méthode qui vérifie si la réponse selectionne est bonne ou non, additionne les points et desactive les boutons radios.
+ * Verifie si la réponse n'a pas été selctionnée.
+ * @param reponseSelectionee la reposne selectionnée
+ * @param questionnaireObj l'objet questionnaire
+ */
+function questionSuivanteVerif(reponseSelectionee, questionnaireObj) {
     if (verificationReponseFaite) {
     } else {
         if (reponseSelectionee === null) {
@@ -102,7 +124,7 @@ function verifierReponse(questionnaireObj) {
 
             const boutonVerifier = document.getElementById("boutonVerifier");
             boutonVerifier.value = "Question Suivante !";
-            boutonVerifier.removeEventListener("click", verifierReponse);
+            boutonVerifier.removeEventListener("click", verifierSiQuestionSelectionnee);
 
             boutonVerifier.addEventListener("click", function () {
                 boutonVerifier.value = "Vérifier la réponse";
@@ -114,9 +136,13 @@ function verifierReponse(questionnaireObj) {
         }
     }
 }
+
+/**
+ * Méthode qui gère l'affichage des boutons "Vérifier la réponse" et "Abandonner".
+ * @param questionnaireObj l'objet questionnaire
+ */
 function gererBoutons(questionnaireObj) {
     afficherBoutonVerifier(questionnaireObj);
-
     const boutonAbandon = creerInput("button", "boutonAbandon", "", "Abandonner", "bouton");
     fieldset.appendChild(boutonAbandon);
     boutonAbandon.addEventListener("click", function () {
@@ -126,7 +152,11 @@ function gererBoutons(questionnaireObj) {
 }
 
 
-
+/**
+ * Méthode qui affiche le titre de la question, la question et les choix de réponses.
+ * @param questionObj l'objet question
+ * @param questionnaireObj l'objet questionnaire
+ */
 function affichageQuestion(questionObj, questionnaireObj) {
     viderZoneDeDonnees();
     let pluriel = pointsPluriel(questionObj);
@@ -142,16 +172,27 @@ function affichageQuestion(questionObj, questionnaireObj) {
             choixDeReponse.appendChild(affichageChoixReponses(questionObj.reponses[i], i + 1));
             fieldset.appendChild(choixDeReponse);
 
-            //C'est pas forcément ici, mais on pourrait faire que si on voit que y'a pas de question restante, qu'on change le bouton pour "voir les résultats" et que ça mène à la page des résultats.
         }
 
 }
+
+/**
+ * Méthode qui crée les choix de réponses et les boutons radios.
+ * @param reponse la réponse
+ * @param index l'index de la réponse
+ * @returns {HTMLParagraphElement} le paragraphe avec le bouton radio et le label
+ */
 function affichageChoixReponses(reponse, index) {
     let ligneReponse = document.createElement("p");
     ligneReponse.appendChild(creerInput("radio", "reponse" + index, "reponse", reponse));
     ligneReponse.appendChild(creerLabel(reponse, "reponse" + index, reponse, "pRep"));
     return ligneReponse;
 }
+
+/**
+ * Méthode qui construit l'interface des résultats. Autant si l'user a complété le quiz que s'il a abandonné.
+ * @param questionnaireObj l'objet questionnaire
+ */
 function construireInterfaceResultats(questionnaireObj) {
     viderZoneDeDonnees();
     legend.textContent = "Résultats";
@@ -163,6 +204,11 @@ function construireInterfaceResultats(questionnaireObj) {
     fieldset.appendChild(boutonRejouer);
     gererInterfaceResultats(questionnaireObj);
 }
+
+/**
+ * Méthode qui gère quelle phrase générer en fonction de si l'utilisateur à décidé d'abandonner ou non.
+ * @param questionnaireObj l'objet questionnaire
+ */
 function gererInterfaceResultats(questionnaireObj) {
     let scoreFinal = questionnaireObj.nombreDePoints;
     let notePourcentage = ((scoreFinal / questionnaireObj.nombreDePointsMax) * 100).toFixed(2);
@@ -176,6 +222,10 @@ function gererInterfaceResultats(questionnaireObj) {
     }
     boutonRejouer.addEventListener("click", creerNouveauJeu);
 }
+
+/**
+ * Méthode qui désactive les boutons radios.
+ */
 function radioDesactives() {
     let radios = document.getElementsByName("reponse");
     for (let i = 0; i < radios.length; i++) {

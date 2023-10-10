@@ -68,8 +68,6 @@ function styleMauvauseReponse(valeurChecked) {
     id.innerText += " ❌";
     id.style.textDecoration = "line-through";
 }
-
-
 /**
  * Méthode qui ajoute un "S" à la fin du mot points si la question peut donner plus qu'un point.
  * @param questionObj l'object question
