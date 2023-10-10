@@ -1,4 +1,3 @@
-
 class QuestionnaireQuiz {
 
     _indexCourrantQuestion = 0;
@@ -50,6 +49,7 @@ class QuestionnaireQuiz {
     set nombreDePoints(value) {
         this._nombreDePoints = value;
     }
+
     verifierIndex() {
         let prochaineQuestionExiste = false;
         if (this._indexCourrantQuestion < this._questions.length) {
@@ -71,40 +71,22 @@ class QuestionnaireQuiz {
     }
 
 
-    calculerPoints() {
-        // Implement logic to calculate points based on user responses
-        // For example, you can iterate through this._questions and check user responses
-        let totalPoints = 0;
-        // Add your logic here to calculate points
-        return totalPoints;
-    }
-
-
     /**
-     * Vérifie si la réponse est bonne
-     * @param question {Question}
-     * @param valeurChecked {string}
-     * @returns {boolean}
+     * Applique le bon style selon la réponse qui a été selectionnée.
+     * @param question {Question} La question
+     * @param valeurChecked {string} la valeur selectionnée
      */
     verifierBonneReponse(question, valeurChecked) {
-        let valeurAeteCochee = false;
         if (valeurChecked == null) {
             alert("Veuillez choisir une réponse ou abandonner !");
-
         } else {
             if (question.valideReponse(valeurChecked)) {
                 styleBonneReponse.call(this, valeurChecked, question);
-
-
-                valeurAeteCochee = true;
-
             } else {
                 styleMauvauseReponse(valeurChecked);
                 styleBonneReponse(question.bonneReponse, question);
-//L'id de ma bonne réponse, c'Est le même que la string qu'il contient. - Fabien, 2023
             }
         }
-        return valeurAeteCochee;
     }
 
 }
