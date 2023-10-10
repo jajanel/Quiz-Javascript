@@ -1,0 +1,4 @@
+
+ ✨ Ce qu'il nous reste à faire avant la remise:
+
+ 2 : Regarder pour faire de l'optimisation, regarder les const et les let, voir si on peut les mettre dans des fonctions.
