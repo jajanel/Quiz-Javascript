@@ -8,6 +8,41 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * Fonction qui prend le fichier JSON et qui tranforme chacune des question JSON en un objet Question.
  * @returns {*[]} Le tableau de 5 objets questions aléatoires.
