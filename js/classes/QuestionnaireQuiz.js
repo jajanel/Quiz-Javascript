@@ -50,7 +50,6 @@ class QuestionnaireQuiz {
     set nombreDePoints(value) {
         this._nombreDePoints = value;
     }
-
     verifierIndex() {
         let prochaineQuestionExiste = false;
         if (this._indexCourrantQuestion < this._questions.length) {
@@ -60,6 +59,15 @@ class QuestionnaireQuiz {
             prochaineQuestionExiste = true;
         }
         return prochaineQuestionExiste;
+    }
+
+
+    calculerQuizTotal(question) {
+        let total = 0;
+        for (let i = 0; i < question.length; i++) {
+            total += question[i].nbrePoints;
+        }
+        return total;
     }
 
 
@@ -95,6 +103,7 @@ class QuestionnaireQuiz {
 
             } else {
                 styleMauvauseReponse(valeurChecked);
+                styleBonneReponse(question.bonneReponse, question);
 //L'id de ma bonne réponse, c'Est le même que la string qu'il contient. - Fabien, 2023
             }
         }

@@ -16,7 +16,7 @@ function shuffleArray(array) {
 function JSONaObjectJS() {
     let tableauDesQuestions = [];
     for (const question of tabAssQuestions) {
-        tableauDesQuestions.push(new Question(question.question, question.reponses, question.bonneReponse, question.nbrePoints)); // Push each question object into the new array
+        tableauDesQuestions.push(new Question(question.question, question.reponses, question.bonneReponse, question.nbrePoints));
     }
     shuffleArray(tableauDesQuestions);
 
