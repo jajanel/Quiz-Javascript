@@ -1,8 +1,4 @@
 
  ✨ Ce qu'il nous reste à faire avant la remise:
 
- 1 : Ajuster le texte de fin lorsque l'utilisateur abandonne le quiz, notament l'ajustement du NAN,
- regarder aussi pour la valeur que l'on met apres le scores, (si le total des questions est de 5, on met 0 sur 5, ou peut importe on était rendue dans le quiz).
-
-
  2 : Regarder pour faire de l'optimisation, regarder les const et les let, voir si on peut les mettre dans des fonctions.

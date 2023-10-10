@@ -31,7 +31,7 @@ function JSONaObjectJS() {
 function msgSelonScore(pourcentage){
     let laStringDeTexte = "";
     if (pourcentage < 30){
-        laStringDeTexte = " Vous êtes vraiment nul ! Il va falloir réviser encore...";
+        laStringDeTexte = " Il va falloir réviser encore... Vous y arriverez un jour! ";
     } else if (pourcentage < 60){
         laStringDeTexte = " Vous auriez quand même pu faire mieux... Aller hop, on révise !";
     } else if (pourcentage < 70){

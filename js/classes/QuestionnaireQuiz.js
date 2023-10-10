@@ -1,6 +1,5 @@
 class QuestionnaireQuiz {
 
-    _indexCourrantQuestion = 0;
 
     constructor(questions) {
         this._indexQuestion = 0;
@@ -8,7 +7,6 @@ class QuestionnaireQuiz {
         this._nombreDePointsMax = 0;
         this._questions = JSONaObjectJS();
     }
-
 
     get nombreDePointsMax() {
         return this._nombreDePointsMax;
@@ -18,13 +16,6 @@ class QuestionnaireQuiz {
         this._nombreDePointsMax = value;
     }
 
-    get indexCourrantQuestion() {
-        return this._indexCourrantQuestion++;
-    }
-
-    set indexCourrantQuestion(value) {
-        this._indexCourrantQuestion = value;
-    }
 
     get questions() {
         return this._questions;
@@ -32,14 +23,6 @@ class QuestionnaireQuiz {
 
     set questions(value) {
         this._questions = value;
-    }
-
-    get indexQuestion() {
-        return this._indexQuestion;
-    }
-
-    set indexQuestion(value) {
-        this._indexQuestion = value;
     }
 
     get nombreDePoints() {
@@ -50,24 +33,14 @@ class QuestionnaireQuiz {
         this._nombreDePoints = value;
     }
 
-    verifierIndex() {
-        let prochaineQuestionExiste = false;
-        if (this._indexCourrantQuestion < this._questions.length) {
-            prochaineQuestionExiste = true;
-            this._indexCourrantQuestion++;
-        } else {
-            prochaineQuestionExiste = true;
+    /**
+     * Méthode qui calcule le nombre total de points qui peuvent être obtenus avec les 5 questions.
+     */
+    calculerTotalPossiblePoints() {
+        this._nombreDePointsMax = 0;
+        for (const question of this.questions) {
+            this._nombreDePointsMax += question.nbrePoints;
         }
-        return prochaineQuestionExiste;
-    }
-
-
-    calculerQuizTotal(question) {
-        let total = 0;
-        for (let i = 0; i < question.length; i++) {
-            total += question[i].nbrePoints;
-        }
-        return total;
     }
 
 

@@ -37,6 +37,7 @@ function creerNouveauJeu() {
     viderZoneDeDonnees();
     const questionnaireObj = new QuestionnaireQuiz();
     verificationQuestionSuivante(questionnaireObj);
+    questionnaireObj.calculerTotalPossiblePoints();
 }
 
 /**
@@ -97,8 +98,6 @@ function questionSuivanteVerif(reponseSelectionee, questionnaireObj) {
             let questionObj = questionnaireObj.questions[indexCourrantQuestion];
             const laBonneReponse = questionObj.bonneReponse.value;
             questionnaireObj.verifierBonneReponse(questionObj, reponseSelectionee);
-
-            questionnaireObj.nombreDePointsMax += questionObj.nbrePoints;
             verificationReponseFaite = true;
             radioDesactives();
 
@@ -197,8 +196,6 @@ function gererInterfaceResultats(questionnaireObj) {
     let scoreFinal = questionnaireObj.nombreDePoints;
     let notePourcentage = ((scoreFinal / questionnaireObj.nombreDePointsMax) * 100).toFixed(2);
     if (abandon === true) {
-
-        console.log(notePourcentage);
         titre.textContent = "Voici votre résultat, même si vous avez abandonné...";
         resultat.textContent = "Vous avez quand même " + scoreFinal + "/ " + questionnaireObj.nombreDePointsMax + " points d'accumulés, et votre note est de: " + notePourcentage + "%. C'est dommage de ne pas avoir continué :(";
     } else if (abandon === false) {
